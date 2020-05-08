@@ -5,6 +5,8 @@ import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
 import { toTitleCase } from '../helper';
 import '../styles/choropleth.scss';
 import positiveData from '../data/data_kecamatan_positif.json';
+import pdpData from '../data/data_kecamatan_pdp.json';
+import odpData from '../data/data_kecamatan_odp.json';
 import topoMap from '../topojson/bandung.json';
 
 const status = {
@@ -13,39 +15,59 @@ const status = {
   ODP: 2,
 };
 
+const colors = {
+  POSITIVE: {
+    start: '#ffcbc2',
+    end: '#ff2700',
+    hover: '#bd1c00',
+  },
+  PDP: {
+    start: '#ffe2c2',
+    end: '#FF8802',
+    hover: '#c96b00',
+  },
+  ODP: {
+    start: '#bddeff',
+    end: '#046bd1',
+    hover: '#0053a6',
+  },
+}
+
 export class Choropleth extends React.Component {
   state = {
     data: null,
-    maxPercentage: 0,
+    maxAmount: 0,
     showTooltip: false,
     activeData: null,
     activeOption: status.POSITIVE,
   };
 
-  initData = () => {
-    let data = {};
-    let total = 0;
-    let maxPercentage = 0;
+  initData = option => {
+    let data = {}, baseData;
+    let maxAmount = 0;
 
-    positiveData.forEach(d => {total += d.Positif});
-    positiveData.forEach(d => {
+    if (option === status.POSITIVE) baseData = positiveData;
+    if (option === status.PDP) baseData = pdpData;
+    if (option === status.ODP) baseData = odpData;
+
+    baseData.forEach(d => {
+      let amount = 0;
+      let numbers = {...d};
       let name = d.Kecamatan.split(' ').join('');
-      let percentage = d.Positif / total;
 
-      if (percentage > maxPercentage) {
-        maxPercentage = percentage;
-      }
+      if (option === status.POSITIVE) amount = d.Positif;
+      if (option === status.PDP) amount = d.Dirawat + d.Selesai;
+      if (option === status.ODP) amount = d.Dipantau + d.Selesai;
+      if (amount > maxAmount) maxAmount = amount;
+
+      delete numbers.Kecamatan;
       data[name] = {
         name: toTitleCase(d.Kecamatan),
-        amount: d.Positif,
-        bedrest: d.Dirawat,
-        cured: d.Sembuh,
-        dead: d.Meninggal,
-        percentage,
+        amount,
+        numbers,
       };
     });
-    console.log(data);
-    this.setState({data, maxPercentage});
+    this.setState({data, maxAmount});
   }
 
   setActiveData = name => {
@@ -62,10 +84,9 @@ export class Choropleth extends React.Component {
         {this.state.showTooltip ? (
           <div className="tooltip">
             <h1>{activeData.name}</h1>
-            <p>Positif: {activeData.amount}</p>
-            <p>Dirawat: {activeData.bedrest}</p>
-            <p>Sembuh: {activeData.cured}</p>
-            <p>Meninggal: {activeData.dead}</p>
+            {Object.keys(activeData.numbers).map((key, i) => (
+              <p key={i}>{key}:&nbsp;{activeData.numbers[key]}</p>
+            ))}
           </div>
         ) : null}
       </ReactTooltip>
@@ -73,10 +94,16 @@ export class Choropleth extends React.Component {
   }
 
   renderMap = () => {
+    let color;
+    const {activeOption} = this.state;
     const maxWidth = window.innerWidth;
+
+    if (activeOption === status.POSITIVE) color = colors.POSITIVE;
+    if (activeOption === status.PDP) color = colors.PDP;
+    if (activeOption === status.ODP) color = colors.ODP;
     const colorScale = scaleLinear()
-      .domain([0, this.state.maxPercentage])
-      .range(["#ffa899", "#ff2700"]);
+      .domain([0, this.state.maxAmount])
+      .range([color.start, color.end]);
 
     return (
       <>
@@ -98,8 +125,8 @@ export class Choropleth extends React.Component {
                   <Geography
                     key={geo.rsmKey}
                     geography={geo}
-                    fill={colorScale(geoData.percentage)}
-                    strokeWidth={0.25}
+                    fill={colorScale(geoData.amount)}
+                    strokeWidth={0.3}
                     stroke={'#fff'}
                     onMouseEnter={() => this.setActiveData(geoName)}
                     onMouseLeave={() => {
@@ -107,7 +134,7 @@ export class Choropleth extends React.Component {
                     }}
                     style={{
                       hover: {
-                        fill: '#F53'
+                        fill: color.hover
                       }
                     }}
                   />
@@ -121,11 +148,13 @@ export class Choropleth extends React.Component {
   }
 
   chooseOption = option => {
-    this.setState({activeOption: option});
+    this.setState({activeOption: option}, () => {
+      this.initData(option);
+    });
   }
 
   componentDidMount = () => {
-    this.initData();
+    this.initData(this.state.activeOption);
   }
 
   render() {

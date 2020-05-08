@@ -3,8 +3,15 @@ import { scaleLinear } from "d3-scale";
 import ReactTooltip from "react-tooltip";
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
 import { toTitleCase } from '../helper';
+import '../styles/choropleth.scss';
 import positiveData from '../data/data_kecamatan_positif.json';
 import topoMap from '../topojson/bandung.json';
+
+const status = {
+  POSITIVE: 0,
+  PDP: 1,
+  ODP: 2,
+};
 
 export class Choropleth extends React.Component {
   state = {
@@ -12,6 +19,7 @@ export class Choropleth extends React.Component {
     maxPercentage: 0,
     showTooltip: false,
     activeData: null,
+    activeOption: status.POSITIVE,
   };
 
   initData = () => {
@@ -78,8 +86,8 @@ export class Choropleth extends React.Component {
           width={maxWidth / 2.5}
           projection="geoMercator"
           projectionConfig={{
-            scale: 120000,
-            center: [107.65, -6.965]
+            scale: 170000,
+            center: [107.63, -6.93]
           }}>
           <Geographies geography={topoMap}>
             {({ geographies }) =>
@@ -112,15 +120,49 @@ export class Choropleth extends React.Component {
     )
   }
 
+  chooseOption = option => {
+    this.setState({activeOption: option});
+  }
+
   componentDidMount = () => {
     this.initData();
   }
 
   render() {
+    const {activeOption} = this.state;
     return (
       <>
-        <div className="choropleth">
-          {this.state.data ? this.renderMap() : null}
+        <div className="choropleth-wrapper">
+          <div className="choropleth">
+            {this.state.data ? this.renderMap() : null}
+          </div>
+          <div className="choropleth-toolbar">
+            <h1>Pilih salah satu data<br/>di bawah ini:</h1>
+            <button
+              onClick={() => this.chooseOption(status.POSITIVE)}
+              className={`
+                choropleth-option positive
+                ${activeOption === status.POSITIVE ? 'active' : ''}
+              `}>
+              <div />Positif
+            </button>
+            <button
+              onClick={() => this.chooseOption(status.PDP)}
+              className={`
+                choropleth-option pdp
+                ${activeOption === status.PDP ? 'active' : ''}
+              `}>
+              <div />PDP
+            </button>
+            <button
+              onClick={() => this.chooseOption(status.ODP)}
+              className={`
+                choropleth-option odp
+                ${activeOption === status.ODP ? 'active' : ''}
+              `}>
+              <div />ODP
+            </button>
+          </div>
         </div>
         <p className="caption">
           Peta choropleth persebaran COVID-19 di Kota Bandung.<br/>

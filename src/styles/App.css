@@ -8,6 +8,11 @@ a {
   text-decoration: none;
 }
 
+button {
+  border: none;
+  background: white;
+}
+
 /* Custom styles */
 
 .App {
@@ -16,26 +21,6 @@ a {
   font-family: 'Merriweather', serif;
   /* display: flex;
   flex-direction: column; */
-}
-
-.choropleth {
-  height: 75vh;
-  overflow: hidden;
-  /* background: yellow; */
-}
-
-.tooltip {
-  text-align: left;
-  padding: 4px 0 10px 0;
-}
-
-.tooltip h1 {
-  font-size: 1rem;
-}
-
-.tooltip p {
-  font-size: 0.8rem;
-  margin: 2px 0;
 }
 
 .main-subtitle {

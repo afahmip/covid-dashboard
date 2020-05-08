@@ -1,6 +1,8 @@
 import pandas
 import json
-df = pandas.read_csv('ODP.csv',header=0,sep=';',parse_dates=['Date'])
+import datetime
+dateparse = lambda x: pandas.datetime.strptime(x, '%d/%m/%Y')
+df = pandas.read_csv('ODP.csv',header=0,sep=';',parse_dates=['Date'],date_parser=dateparse)
 df_nat = pandas.DataFrame({'Date':df['Date'],'WNI':df['WNI'],'WNA':df['WNA']})
 df_gender = pandas.DataFrame({'Date':df['Date'],'Pria':df['LAKI - LAKI'],'Wanita':df['PEREMPUAN']})
 df_total = pandas.DataFrame({'Date':df['Date'],'Total':df['TOTAL']})

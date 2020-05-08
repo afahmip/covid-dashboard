@@ -1,24 +1,37 @@
 import React, {useState} from 'react'
-// import data_gender_odp from './data/data_gender_odp.json';
-import {XYPlot, LineSeries} from 'react-vis';
-const data = [
-  {x: 0, y: 8},
-  {x: 1, y: 5},
-  {x: 2, y: 4},
-  {x: 3, y: 9},
-  {x: 4, y: 1},
-  {x: 5, y: 7},
-  {x: 6, y: 6},
-  {x: 7, y: 3},
-  {x: 8, y: 2},
-  {x: 9, y: 0}
-];
+import {
+  XYPlot, 
+  XAxis, 
+  YAxis, 
+  VerticalBarSeries,
+  VerticalGridLines,
+  HorizontalGridLines
+} from 'react-vis';
 
-export const Testing = () => {
+import data_condition_raw from  './data/data_condition_pdp.json'
+
+
+export const ConditionGraph = () => {
+  const selesai_series = [];
+  const pengawasan_series = [];
+  const start_date = new Date('April 5 2020').getTime()
+  const end_date = new Date('May 3 2020').getTime()
+  data_condition_raw.map((data,index)=>{
+    selesai_series.push({x:data.Date + (index * (24*3600*1000)),y:data.Selesai})
+    pengawasan_series.push({x:data.Date + (index * (24*3600*1000)),y:data.Pengawasan})
+  })
   return (
     <div>
-      <XYPlot height={300} width={300}>
-        <LineSeries data={data} />
+      <XYPlot 
+        xType="time"
+        width={900} 
+        height={300} 
+        stackBy="y">
+        <HorizontalGridLines />
+        <XAxis />
+        <YAxis />
+        <VerticalBarSeries data={selesai_series} />
+        <VerticalBarSeries data={pengawasan_series} />
       </XYPlot>
     </div>
   )

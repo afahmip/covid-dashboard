@@ -53,7 +53,7 @@ export class Choropleth extends React.Component {
       <ReactTooltip>
         {this.state.showTooltip ? (
           <div className="tooltip">
-            <p>{activeData.name}</p>
+            <h1>{activeData.name}</h1>
             <p>Positif: {activeData.amount}</p>
             <p>Dirawat: {activeData.bedrest}</p>
             <p>Sembuh: {activeData.cured}</p>
@@ -75,11 +75,11 @@ export class Choropleth extends React.Component {
         {this.renderToooltip()}
         <ComposableMap
           data-tip=""
-          width={maxWidth / 2.2}
+          width={maxWidth / 2.5}
           projection="geoMercator"
           projectionConfig={{
             scale: 120000,
-            center: [107.65, -6.95]
+            center: [107.65, -6.965]
           }}>
           <Geographies geography={topoMap}>
             {({ geographies }) =>
@@ -122,6 +122,10 @@ export class Choropleth extends React.Component {
         <div className="choropleth">
           {this.state.data ? this.renderMap() : null}
         </div>
+        <p className="caption">
+          Peta choropleth persebaran COVID-19 di Kota Bandung.<br/>
+          Hover pada region untuk melihat detail tiap kecamatan.
+        </p>
       </>
     );
   }

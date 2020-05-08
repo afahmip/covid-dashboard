@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
+
+p {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Custom styles */
+
+.App {
+  padding: 5rem 10rem;
+  text-align: center;
+  font-family: 'Merriweather', serif;
+  /* display: flex;
+  flex-direction: column; */
+}
+
+.choropleth {
+  height: 75vh;
+  overflow: hidden;
+  /* background: yellow; */
+}
+
+.tooltip {
+  text-align: left;
+  padding: 4px 0 10px 0;
+}
+
+.tooltip h1 {
+  font-size: 1rem;
+}
+
+.tooltip p {
+  font-size: 0.8rem;
+  margin: 2px 0;
+}
+
+.main-subtitle {
+  background: black;
+  color: white;
+  display: inline-block;
+  font-size: 0.85rem;
+  padding: 5px 8px;
+}
+
+.main-title {
+  font-size: 3rem;
+  line-height: 4.3rem;
+  margin-top: 15px;
+}
+
+.author {
+  font-size: 0.9rem;
+  margin-bottom: 5rem;
+}
+
+.caption {
+  font-size: 0.9rem;
+  color: rgb(78, 78, 78);
+  line-height: 1.5rem;
+}
+
+.paragraph {
+  margin: 1rem 22rem;
+  font-size: 1.2rem;
+  line-height: 2.1rem;
+}

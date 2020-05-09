@@ -44,7 +44,7 @@ export const GraphIncrement = () => {
       {/* <h1 className="grafik-increment__title">Grafik Kenaikan Warga Covid 19 ({showed_data.group}) {mode_psbb&&`${after_psbb?'Sesudah':'Sebelum'} PSBB`}</h1> */}
       <XYPlot 
         xType="time"
-        width={900} 
+        width={1000} 
         height={300}
         onMouseLeave={() => setCurrValue(null)}
         >

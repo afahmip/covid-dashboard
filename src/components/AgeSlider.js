@@ -30,12 +30,7 @@ export class AgeSlider extends React.Component {
     if (total <= 120) className = 'medium';
     if (total <= 90) className = 'large';
     if (total <= 70) className = 'giant';
-    return (
-      <>
-        {/* <p>{baby + young + adult + old}</p> */}
-        <p className={className}>{value}</p>
-      </>
-    );
+    return <p className={className}>{value}</p>;
   }
 
   initDates = () => {

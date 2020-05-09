@@ -7,7 +7,7 @@ export default function Toggle(props) {
       value: 'total'
     },
     {
-      text: 'Perempuan',
+      text: 'Wanita',
       value: 'wanita',
       header: 'Jenis Kelamin'
     },
@@ -31,7 +31,7 @@ export default function Toggle(props) {
         <>
           {e.header ? <h5>{e.header}</h5>: ''}
           <label className={props.used === e.value ? 'active': ''}>
-            <input 
+            <input
               type='radio'
               value={e.value}
               checked={props.used === e.value}

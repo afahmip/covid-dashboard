@@ -57,7 +57,7 @@ export const GraphIncrement = () => {
           </tspan>}/>
         <YAxis/>
         <LineSeries 
-        animation={'woobly'} 
+        animation={'wobbly'} 
         data={
           mode_psbb?
           showed_data.data.filter(data=>after_psbb?data.x.getTime() > PSBB_DATE.getTime():data.x.getTime() <= PSBB_DATE.getTime())

@@ -91,7 +91,7 @@ export default class LineChartCumulative extends React.Component {
           <div className="lc-cumulative__content">
             <XYPlot
               onMouseLeave={() => this.setState({value: false})}
-              width={600}
+              width={700}
               height={300}
               className="lc-cumulative__figure"
             >
@@ -106,10 +106,9 @@ export default class LineChartCumulative extends React.Component {
                 </tspan>}/>
               <YAxis style={{text: {fontSize: 8}}}/>
               <LineSeries {...odpLineSeriesProps} />
-              <LineSeries {...pdpLineSeriesProps} />       
+              <LineSeries {...pdpLineSeriesProps} />
               <LineSeries {...positifLineSeriesProps} />
               {value && <Hint value={value} />}
-              
             </XYPlot>
             <DiscreteColorLegend
               colors={COLORS}

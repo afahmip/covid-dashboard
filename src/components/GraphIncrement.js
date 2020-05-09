@@ -44,7 +44,7 @@ export const GraphIncrement = () => {
   }
   return (
     <section className="grafik-increment">
-      <h1 className="grafik-increment__title">Grafik Kenaikan {showed_data.group==='Positif'&&'Warga'} {showed_data.group} Covid 19 {mode_psbb&&`${after_psbb?'Sesudah':'Sebelum'} PSBB`}</h1>
+      {/* <h1 className="grafik-increment__title">Grafik Kenaikan Warga Covid 19 ({showed_data.group}) {mode_psbb&&`${after_psbb?'Sesudah':'Sebelum'} PSBB`}</h1> */}
       <XYPlot 
         xType="time"
         width={900} 
@@ -60,7 +60,7 @@ export const GraphIncrement = () => {
           </tspan>}/>
         <YAxis/>
         <LineSeries 
-        animation={'woobly'} 
+        animation={'wobbly'} 
         data={
           mode_psbb?
           showed_data.data.filter(data=>after_psbb?data.x.getTime() > PSBB_DATE.getTime():data.x.getTime() <= PSBB_DATE.getTime())

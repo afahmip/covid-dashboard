@@ -2,8 +2,10 @@ import React from 'react';
 import './styles/App.css';
 import '../node_modules/react-vis/dist/style.css';
 import { Choropleth } from './components/Choropleth';
-import { GraphIncrement } from './components/GraphIncrement';
 import ConditionGraph from './components/ConditionGraph'
+import LineChartCumulative from './components/LineChartCumulative';
+import { GraphIncrement } from './components/GraphIncrement'
+import { AgeSlider } from './components/AgeSlider';
 
 function App() {
   return (
@@ -19,12 +21,31 @@ function App() {
         <a href="https://github.com/ahmadfahmip">Luhtfi Ahmad</a>, &&nbsp;
         <a href="https://github.com/ahmadfahmip">Ilyas Mustafa</a>
       </p>
-      <p className="paragraph">
+      <p className="center-text paragraph">
         Sudah 2 bulan lebih sejak pemerintah mengumumkan kasus pertama COVID-19 pada tanggal 2 Maret 2020. Himbauan hidup sehat digaungkan, termasuk pula perintah untuk menjaga jarak (<i>physical distancing</i>) dan PSBB. Sejauh manakah perkembangan kasus hingga saat ini, khususnya di kota kita tercinta, Kota Bandung?
       </p>
       <Choropleth />
+      <div className="left-text">
+        <h2 className="section">COVID Dalam Angka</h2>
+        <p className="paragraph">
+          Hingga saat ini, persebaran kasus COVID-19 di Kota Bandung terus meningkat dan belum terlihat indikasi akan segera turun.
+        </p>
+      </div>
+      <LineChartCumulative />
+      <AgeSlider />
       <GraphIncrement/>
       <ConditionGraph/>
+      <div className="left-text">
+        <h2 className="section">Daftar Pustaka</h2>
+        <p className="paragraph">
+          [1]&nbsp;WHO (2020).&nbsp;
+          <a href="http://www.euro.who.int/en/health-topics/health-emergencies/coronavirus-covid-19/statements/statement-older-people-are-at-highest-risk-from-covid-19,-but-all-must-act-to-prevent-community-spread"><i>Statement – Older people are at highest risk from COVID-19, but all must act to prevent community spread</i></a>
+        </p>
+        <p className="paragraph">
+          [2]&nbsp;Satu Data Indonesia (2019).&nbsp;
+          <a href="https://data.go.id/dataset/batas-administrasi-kecamatan-dan-kelurahan-kota-bandung"><i>Batas Administrasi Kecamatan dan Kelurahan Kota Bandung</i></a>
+        </p>
+      </div>
     </div>
   );
 }

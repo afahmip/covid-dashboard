@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import './styles/index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import moment from 'moment';
+
+moment.locale('id')
 
 ReactDOM.render(
   <React.StrictMode>

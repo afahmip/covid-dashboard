@@ -2,6 +2,7 @@ import React from 'react';
 import './styles/App.css';
 import '../node_modules/react-vis/dist/style.css';
 import { Choropleth } from './components/Choropleth';
+import LineChartCumulative from './components/LineChartCumulative';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         Sudah 2 bulan lebih sejak pemerintah mengumumkan kasus pertama COVID-19 pada tanggal 2 Maret 2020. Himbauan hidup sehat digaungkan, termasuk pula perintah untuk menjaga jarak (<i>physical distancing</i>) dan PSBB. Sejauh manakah perkembangan kasus hingga saat ini, khususnya di kota kita tercinta, Kota Bandung?
       </p>
       <Choropleth />
+      <LineChartCumulative />
     </div>
   );
 }

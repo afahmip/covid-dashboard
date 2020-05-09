@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactSlider from 'react-slider';
 import { dateToDMY } from '../helper';
+import '../styles/AgeSlider.scss';
 import positiveData from '../data/data_usia_positif.json';
 
 export class AgeSlider extends React.Component {
@@ -16,12 +17,25 @@ export class AgeSlider extends React.Component {
     const young = date['Kategori-2'] + date['Kategori-3'];
     const adult = date['Kategori-4'] + date['Kategori-5'];
     const old = date['Kategori-6'] + date['Kategori-7'] + date['Kategori-8'] + date['Kategori-9'];
+    const total = baby + young + adult + old;
     const value =
       Array(baby).fill('👶🏼').join('') +
       Array(young).fill('👦🏻').join('') +
       Array(adult).fill('🧑🏻').join('') +
       Array(old).fill('👴🏼').join('');
-    return <p>{value}</p>;
+
+    let className;
+    if (total <= 250) className = 'tiny';
+    if (total <= 160) className = 'small';
+    if (total <= 120) className = 'medium';
+    if (total <= 90) className = 'large';
+    if (total <= 70) className = 'giant';
+    return (
+      <>
+        {/* <p>{baby + young + adult + old}</p> */}
+        <p className={className}>{value}</p>
+      </>
+    );
   }
 
   initDates = () => {
@@ -46,19 +60,21 @@ export class AgeSlider extends React.Component {
   render() {
     const {dates, curDate} = this.state;
     return (
-      <div>
+      <div className="age-slider-section">
+        <div className="age-slider-text">
+          <h2>Mayoritas kasus positif merupakan</h2>
+          <h1>Lansia</h1>
+          <p className="paragraph">Hal ini selaras dengan pernyataan WHO bahwa kaum lansia memiliki risiko lebih tinggi untuk terpapar COVID-19<sup>[1]</sup>. Sebaliknya, balita dan anak-anak memiliki risiko terpapar paling rendah diantara semua kelompok usia.</p>
+        </div>
         {dates ? (
-          <div className="age-slider">
-            <h2>{dateToDMY(curDate)}</h2>
+          <div className="age-slider-wrapper">
+            <h2>Tanggal kasus: {dateToDMY(curDate)}</h2>
             {this.renderAge()}
             <ReactSlider
               min={0}
               max={positiveData.length - 1}
-              className="horizontal-slider"
-              thumbClassName="example-thumb"
-              trackClassName="example-track"
+              className="age-slider"
               onChange={idx => this.setDate(idx)}
-              renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
             />
           </div>
         ) : null}

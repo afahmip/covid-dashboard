@@ -33,6 +33,13 @@ function App() {
       <AgeSlider />
       <LineChartCumulative />
       <GraphIncrement/>
+      <div className="left-text">
+        <h2 className="section">Daftar Pustaka</h2>
+        <p className="paragraph">
+          [1]&nbsp;WHO (2020).&nbsp;
+          <a href="http://www.euro.who.int/en/health-topics/health-emergencies/coronavirus-covid-19/statements/statement-older-people-are-at-highest-risk-from-covid-19,-but-all-must-act-to-prevent-community-spread"><i>Statement – Older people are at highest risk from COVID-19, but all must act to prevent community spread</i></a>
+        </p>
+      </div>
     </div>
   );
 }

@@ -16,47 +16,25 @@ import {
 import odp from '../../data/data_total_odp.json';
 import pdp from '../../data/data_total_pdp.json';
 import positif from '../../data/data_total_positif.json';
-
-function getRandomData() {
-  return new Array(10).fill(0).map((row, i) => ({
-    x: i,
-    y: Math.random() * 20,
-    color: Math.random() * 10
-  }));
-}
-
-const randomData = getRandomData();
-
-const colorRanges = {
-  typeA: ['#59E4EC', '#0D676C'],
-  typeB: ['#EFC1E3', '#B52F93']
-};
-
-const nextType = {
-  typeA: 'typeB',
-  typeB: 'typeA'
-};
-
-const nextModeContent = {
-  canvas: 'SWITCH TO SVG',
-  svg: 'SWITCH TO CANVAS'
-};
-
-const drawModes = ['canvas', 'svg'];
+import './index.scss';
+import Toggle from './Toggle';
 
 export default class LineChartCumulative extends React.Component {
   state = {
-    drawMode: 1,
     data: {
       odp: [],
       pdp: [],
       positif: []
     },
-    used: 'odp',
+    used: 'all',
     strokeWidth: 1,
     showMarks: true,
     value: false,
-    hideComponent: false,
+    show: {
+      odp: true,
+      pdp: true,
+      positif: true
+    },
     colorType: {
       odp: '#e5f50f',
       pdp: '#f5a80f',
@@ -85,6 +63,11 @@ export default class LineChartCumulative extends React.Component {
       }
     })
   }
+  onChangeToggle = (e) => {
+    e.preventDefault();
+    console.log(e.target.value)
+    this.setState({used: e.target.value})
+  }
   
   componentDidMount() {
     this.initData()
@@ -93,10 +76,8 @@ export default class LineChartCumulative extends React.Component {
   render() {
     const {
       colorType,
-      drawMode,
       data,
       used,
-      hideComponent,
       strokeWidth,
       showMarks,
       value
@@ -105,60 +86,63 @@ export default class LineChartCumulative extends React.Component {
       animation: true,
       className: 'mark-series-example',
       sizeRange: [5, 15],
-      color: colorType[used],
       opacityType: 'literal',
       strokeWidth,
-      data: data[used],
-      yType: 'time',
+      xType: 'time',
       onNearestX: d => this.setState({value: d})
     };
-    const SVGComponent = showMarks ? LineMarkSeries : LineSeries;
-    const CanvasComponent = showMarks ? LineMarkSeriesCanvas : LineSeriesCanvas;
+    let odpLineSeriesProps = {...lineSeriesProps, color: colorType['odp'], data: data['odp']} 
+    let pdpLineSeriesProps = {...lineSeriesProps, color: colorType['pdp'], data: data['pdp']} 
+    let positifLineSeriesProps = {...lineSeriesProps, color: colorType['positif'], data: data['positif']} 
 
-    const mode = drawModes[drawMode];
+    const SVGComponent = showMarks ? LineMarkSeries : LineSeries;
+  
     return (
-      <div className="canvas-wrapper">
-        <div className="canvas-example-controls">
-          <button
-            onClick={() => this.setState({used: this.state.used === 'odp' ? 'pdp': 'odp'})}
-          >Change Data</button>
-          {/* <div> {`Mode: ${mode}`} </div>
-          <button
-            onClick={() => this.setState({drawMode: (drawMode + 1) % 2})}
-            buttonContent={nextModeContent[mode]}
-          />
-          <button
-            onClick={() => this.setState({showMarks: !showMarks})}
-            buttonContent={showMarks ? 'HIDE MARKS' : 'SHOW MARKS'}
-          />
-          <button
-            onClick={() => this.setState({colorType: nextType[colorType]})}
-            buttonContent={`TOGGLE COLOR to ${nextType[colorType]}`}
-          />
-          <button
-            onClick={() =>
-              this.setState({strokeWidth: strokeWidth === 1 ? 2 : 1})
-            }
-            buttonContent={'TOGGLE STROKEWIDTH'}
-          />
-          <button
-            onClick={() => this.setState({hideComponent: !hideComponent})}
-            buttonContent={hideComponent ? 'SHOW' : 'HIDE'}
-          /> */}
+      <div className="lc-cumulative">
+        <div className="lc-cumulative__content">
+          <div className="lc-cumulative__tab">
+            <button
+              className={this.state.show.odp ? 'active': ''}
+              onClick={() => {
+                return this.setState({show: {
+                ...this.state.show,
+                odp: !this.state.show.odp
+              }})}}
+            >ODP</button>
+            <button
+              className={this.state.show.pdp ? 'active': ''}
+              onClick={() => {
+                return this.setState({show: {
+                ...this.state.show,
+                pdp: !this.state.show.pdp
+              }})}}
+            >PDP</button>
+            <button
+              className={this.state.show.positif ? 'active': ''}
+              onClick={() => {
+                return this.setState({show: {
+                ...this.state.show,
+                positif: !this.state.show.positif
+              }})}}
+            >Positif</button>
+          </div>
+          <XYPlot
+            onMouseLeave={() => this.setState({value: false})}
+            width={600}
+            height={300}
+            className="lc-cumulative__figure"
+          >
+            <VerticalGridLines />
+            <HorizontalGridLines />
+            <XAxis style={{text: {fontSize: 8}}} tickFormat={(v)=>moment(v).format('l')}/>
+            <YAxis style={{text: {fontSize: 8}}}/>
+            <SVGComponent {...odpLineSeriesProps} />
+            <SVGComponent {...pdpLineSeriesProps} />       
+            <SVGComponent {...positifLineSeriesProps} />
+            {value && <Hint value={value} />}
+          </XYPlot>
         </div>
-        <XYPlot
-          onMouseLeave={() => this.setState({value: false})}
-          width={600}
-          height={300}
-        >
-          <VerticalGridLines />
-          <HorizontalGridLines />
-          <XAxis tickFormat={(v)=>moment(v).format('l')}/>
-          <YAxis />
-          {mode === 'canvas' && <CanvasComponent {...lineSeriesProps} />}
-          {mode === 'svg' && <SVGComponent {...lineSeriesProps} />}
-          {value && <Hint value={value} />}
-        </XYPlot>
+        <Toggle onChange={this.onChangeToggle} used={this.state.used}/>
       </div>
     );
   }

@@ -9034,6 +9034,11 @@ react-simple-maps@^2.0.0:
     d3-zoom "^1.8.3"
     topojson-client "^3.0.0"
 
+react-slider@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-slider/-/react-slider-1.0.4.tgz#24a3095fb22f71fe60e1e788782d71a24304efb4"
+  integrity sha512-YS3fvAPSOoCUAlvE822+J8TQ6ThhG5U38EVd2tx356T7qr+eLVvipaRgz6maIoQZpSrWUz7422wtdzM6JdGYfw==
+
 react-tooltip@^4.2.6:
   version "4.2.6"
   resolved "https://registry.yarnpkg.com/react-tooltip/-/react-tooltip-4.2.6.tgz#a3d5f0d1b0c597c0852ba09c5e2af0019b7cfc70"

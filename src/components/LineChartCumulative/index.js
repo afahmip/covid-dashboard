@@ -84,7 +84,7 @@ export default class LineChartCumulative extends React.Component {
   
     return (
       <>
-        <h3 className="grafik-increment__title">Grafik Penyebaran Covid 19</h3>
+        {/* <h3 className="grafik-increment__title">Grafik Penyebaran Covid 19</h3> */}
         <div className="lc-cumulative">
           <div className="lc-cumulative__content">
             <XYPlot

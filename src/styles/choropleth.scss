@@ -1,0 +1,118 @@
+.choropleth {
+  width: 800px;
+  overflow: hidden;
+  // background: yellow;
+}
+
+.choropleth-wrapper {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 3rem;
+  margin-top: 3rem;
+}
+
+.choropleth-toolbar {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.choropleth-toolbar h1 {
+  font-weight: bold;
+  font-size: 0.9rem;
+  line-height: 1.5rem;
+}
+
+.choropleth-option {
+  cursor: pointer;
+  background: rgb(233, 233, 233);
+  font-size: 0.9rem;
+  padding: 15px 12px;
+  width: 100%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  transition-duration: 0.2s;
+
+  >div {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+  }
+}
+
+.choropleth-option.positive {
+  >div {
+    background-color: #ff2700;
+  }
+  &:hover {
+    background: #ff2700;
+    color: white;
+  }
+  &.active {
+    background: #ff2700;
+  }
+}
+
+.choropleth-option.pdp {
+  >div {
+    background-color: #ff8800;
+  }
+  &:hover {
+    background: #ff8800;
+    color: white;
+  }
+  &.active {
+    background: #ff8800;
+  }
+}
+
+.choropleth-option.odp {
+  >div {
+    background-color: #046bd1;
+  }
+  &:hover {
+    background: #046bd1;
+    color: white;
+  }
+  &.active {
+    background: #046bd1;
+  }
+}
+
+.choropleth-option.active {
+  color: white;
+  font-weight: bold;
+}
+
+.choropleth-gradient {
+  display: flex;
+
+  .gradient {
+    width: 20px;
+    height: 150px;
+    margin-right: 8px;
+  }
+
+  .values {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+.tooltip {
+  text-align: left;
+  padding: 4px 0 10px 0;
+}
+
+.tooltip h1 {
+  font-size: 1rem;
+}
+
+.tooltip p {
+  font-size: 0.8rem;
+  margin: 2px 0;
+}

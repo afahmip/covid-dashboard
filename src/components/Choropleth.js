@@ -36,11 +36,21 @@ const colors = {
 export class Choropleth extends React.Component {
   state = {
     data: null,
+    color: null,
     maxAmount: 0,
     showTooltip: false,
     activeData: null,
     activeOption: status.POSITIVE,
   };
+
+  initColor = () => {
+    let color;
+    const {activeOption} = this.state;
+    if (activeOption === status.POSITIVE) color = colors.POSITIVE;
+    if (activeOption === status.PDP) color = colors.PDP;
+    if (activeOption === status.ODP) color = colors.ODP;
+    this.setState({color});
+  }
 
   initData = option => {
     let data = {}, baseData;
@@ -68,6 +78,7 @@ export class Choropleth extends React.Component {
       };
     });
     this.setState({data, maxAmount});
+    this.initColor();
   }
 
   setActiveData = name => {
@@ -94,13 +105,7 @@ export class Choropleth extends React.Component {
   }
 
   renderMap = () => {
-    let color;
-    const {activeOption} = this.state;
-    const maxWidth = window.innerWidth;
-
-    if (activeOption === status.POSITIVE) color = colors.POSITIVE;
-    if (activeOption === status.PDP) color = colors.PDP;
-    if (activeOption === status.ODP) color = colors.ODP;
+    const {color} = this.state;
     const colorScale = scaleLinear()
       .domain([0, this.state.maxAmount])
       .range([color.start, color.end]);
@@ -110,11 +115,11 @@ export class Choropleth extends React.Component {
         {this.renderToooltip()}
         <ComposableMap
           data-tip=""
-          width={maxWidth / 2.5}
+          height={520}
           projection="geoMercator"
           projectionConfig={{
-            scale: 170000,
-            center: [107.63, -6.93]
+            scale: 220000,
+            center: [107.643, -6.902]
           }}>
           <Geographies geography={topoMap}>
             {({ geographies }) =>
@@ -158,7 +163,15 @@ export class Choropleth extends React.Component {
   }
 
   render() {
-    const {activeOption} = this.state;
+    const {activeOption, color} = this.state;
+    let gradientStyle;
+
+    if (color) {
+      gradientStyle = {
+        backgroundImage: `linear-gradient(0deg, ${color.start}, ${color.end})`
+      }
+    }
+
     return (
       <>
         <div className="choropleth-wrapper">
@@ -166,31 +179,40 @@ export class Choropleth extends React.Component {
             {this.state.data ? this.renderMap() : null}
           </div>
           <div className="choropleth-toolbar">
-            <h1>Pilih salah satu data<br/>di bawah ini:</h1>
-            <button
-              onClick={() => this.chooseOption(status.POSITIVE)}
-              className={`
-                choropleth-option positive
-                ${activeOption === status.POSITIVE ? 'active' : ''}
-              `}>
-              <div />Positif
-            </button>
-            <button
-              onClick={() => this.chooseOption(status.PDP)}
-              className={`
-                choropleth-option pdp
-                ${activeOption === status.PDP ? 'active' : ''}
-              `}>
-              <div />PDP
-            </button>
-            <button
-              onClick={() => this.chooseOption(status.ODP)}
-              className={`
-                choropleth-option odp
-                ${activeOption === status.ODP ? 'active' : ''}
-              `}>
-              <div />ODP
-            </button>
+            <div className="choropleth-toggles">
+              <h1>Pilih salah satu data<br/>di bawah ini:</h1>
+              <button
+                onClick={() => this.chooseOption(status.POSITIVE)}
+                className={`
+                  choropleth-option positive
+                  ${activeOption === status.POSITIVE ? 'active' : ''}
+                `}>
+                <div />Positif
+              </button>
+              <button
+                onClick={() => this.chooseOption(status.PDP)}
+                className={`
+                  choropleth-option pdp
+                  ${activeOption === status.PDP ? 'active' : ''}
+                `}>
+                <div />PDP
+              </button>
+              <button
+                onClick={() => this.chooseOption(status.ODP)}
+                className={`
+                  choropleth-option odp
+                  ${activeOption === status.ODP ? 'active' : ''}
+                `}>
+                <div />ODP
+              </button>
+            </div>
+            <div className="choropleth-gradient">
+              <div className="gradient" style={gradientStyle} />
+              <div className="values">
+                <p>{this.state.maxAmount}</p>
+                <p>0</p>
+              </div>
+            </div>
           </div>
         </div>
         <p className="caption">

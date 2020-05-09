@@ -1,24 +1,26 @@
 .choropleth {
-  height: 75vh;
-  width: 60vw;
+  width: 800px;
   overflow: hidden;
-  /* background: yellow; */
+  // background: yellow;
 }
 
 .choropleth-wrapper {
   display: flex;
   flex-direction: row;
+  margin-bottom: 3rem;
+  margin-top: 3rem;
 }
 
 .choropleth-toolbar {
-  padding-top: 3.5rem;
-  padding-left: 2rem;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .choropleth-toolbar h1 {
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 0.9rem;
   line-height: 1.5rem;
 }
 
@@ -83,6 +85,22 @@
 .choropleth-option.active {
   color: white;
   font-weight: bold;
+}
+
+.choropleth-gradient {
+  display: flex;
+
+  .gradient {
+    width: 20px;
+    height: 150px;
+    margin-right: 8px;
+  }
+
+  .values {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 }
 
 .tooltip {

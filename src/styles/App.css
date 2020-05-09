@@ -16,11 +16,11 @@ button {
 /* Custom styles */
 
 .App {
-  padding: 5rem 10rem;
+  margin: 5rem auto;
+  max-width: 960px;
+  /* background: blue; */
   text-align: center;
   font-family: 'Merriweather', serif;
-  /* display: flex;
-  flex-direction: column; */
 }
 
 .main-subtitle {
@@ -49,7 +49,15 @@ button {
 }
 
 .paragraph {
-  margin: 1rem 22rem;
-  font-size: 1.2rem;
+  margin: 1rem 10rem;
+  font-size: 1.1rem;
   line-height: 2.1rem;
+}
+
+/* Media queries */
+
+@media screen and (max-width: 768px) {
+  .paragraph {
+    margin: 1rem 5rem;
+  }
 }

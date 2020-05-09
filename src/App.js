@@ -32,6 +32,10 @@ function App() {
       </div>
       <LineChartCumulative />
       <AgeSlider />
+      <div className="center-text">
+        <h2 className="section">Seberapa Efektif PSBB?</h2>
+        <p className="paragraph">Sejak diberlakukannya PSBB pertama kali di DKI Jakarta, berbagai daerah termasuk Kota Bandung ikut memberlakukannya. Pembatasan pergerakan masyarakat tentunya memberikan dampak bagi pertambahan kasus harian.</p>
+      </div>
       <GraphIncrement/>
       <div className="left-text">
         <h2 className="section">Daftar Pustaka</h2>

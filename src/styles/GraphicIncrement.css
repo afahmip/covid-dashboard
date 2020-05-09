@@ -3,6 +3,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 10rem;
+  margin-top: 3rem;
 }
 .grafik-increment__tool-container{
   width: 75%;
@@ -10,7 +12,9 @@
   display: flex;
   justify-content: space-between;
 }
-.grafik-increment__button-group > button{
+.grafik-increment__button-group > button {
+  cursor: pointer;
+  outline: none;
   border: none;
   box-shadow:
   0 2.8px 2.2px rgba(0, 0, 0, 0.034),
@@ -20,19 +24,22 @@
   0 41.8px 33.4px rgba(0, 0, 0, 0.086),
   0 100px 80px rgba(0, 0, 0, 0.12);
   padding: 16px 32px;
-  transition: all 1s;
+  transition: all 0.2s;
 }
 .grafik-increment__button-group > button:hover:not(:disabled){
   background-color: whitesmoke;
 }
 .grafik-increment__button-group > button.selected:not(:disabled){
-  background-color: #F16464;
-  color: white;
+  box-shadow:
+    inset 0px -6px 10px rgba(255, 255, 255, 1),
+    inset 0px 4px 15px rgba(0, 0, 0, 0.15),
+    0px 4px 10px rgba(0, 0, 0, 0.03);
 }
-.grafik-increment__button-group > button.selected:hover:not(:disabled){
-  /* background-color: rgba(#F16464,.8); */
-  background-color: #F16464FF;
-  color: white;
+.grafik-increment__button-group > button:active {
+  box-shadow:
+    inset 0px -6px 10px rgba(255, 255, 255, 1),
+    inset 0px 4px 30px rgba(0, 0, 0, 0.2),
+    0px 4px 10px rgba(0, 0, 0, 0.03);
 }
 .grafik-increment__button-group > button:first-of-type{
   border-top-left-radius: 15px;

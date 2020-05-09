@@ -3,7 +3,7 @@ import { scaleLinear } from "d3-scale";
 import ReactTooltip from "react-tooltip";
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
 import { toTitleCase } from '../helper';
-import '../styles/Choropleth.scss';
+import '../styles/choropleth.scss';
 import positiveData from '../data/data_kecamatan_positif.json';
 import pdpData from '../data/data_kecamatan_pdp.json';
 import odpData from '../data/data_kecamatan_odp.json';

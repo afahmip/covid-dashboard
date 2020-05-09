@@ -6,13 +6,15 @@ import {
   LineSeries,
   Hint
 } from 'react-vis';
+
+import '../styles/GraphicIncrement.css';
 import total_raw_positif from '../data/data_total_positif.json'
 import total_raw_odp from '../data/data_total_odp.json'
 import total_raw_pdp from '../data/data_total_pdp.json'
 
 const series = (raw_data) => {
   const arr = []
-  raw_data.map((data,index) => {
+  raw_data.forEach((data,index) => {
     if (index > 0) arr.push({x: new Date(data.Date), y: data.Total - raw_data[index-1].Total})
   })
   return arr
@@ -32,28 +34,28 @@ export const GraphIncrement = () => {
   const handlerShowedData = (val) =>{
     setShowedData({group:val,data:all_data[val]})
   }
+  const handlerPSBB = (val) => {
+    if((after_psbb === val)&&mode_psbb) setModePSBB(false)
+    else setModePSBB(true)
+    setAfterPSBB(val)
+  }
   return (
-    <div>
-      <h1>Grafik Kenaikan Pasien Covid 19 ({showed_data.group})</h1>
-      {mode_psbb&&<h2>{after_psbb?'Sesudah':'Sebelum'} PSBB</h2>}
-      <button onClick={()=> setModePSBB(!mode_psbb)}>Toggle psbb</button>
-      <button onClick={()=> handlerShowedData('ODP')}>ODP</button>
-      <button onClick={()=> handlerShowedData('PDP')}>PDP</button>
-      <button onClick={()=> handlerShowedData('Positif')}>Positif</button>
-      {mode_psbb&&<button onClick={()=> setAfterPSBB(!after_psbb)}>Toggle After or Before</button>}
+    <section className="grafik-increment">
+      <h1 className="grafik-increment__title">Grafik Kenaikan Warga Covid 19 ({showed_data.group}) {mode_psbb&&`${after_psbb?'Sesudah':'Sebelum'} PSBB`}</h1>
       <XYPlot 
         xType="time"
         width={900} 
         height={300}
-        stackBy="y">
+        onMouseLeave={() => setCurrValue(null)}
+        >
         <XAxis 
-          hideTicks
+          // hideTicks
           tickFormat={t=> 
           <tspan>
             <tspan x="0">{`${t.getDate()}`}</tspan>
             <tspan x="0" dy="1em">{`${months[t.getMonth()]}`}</tspan>
           </tspan>}/>
-        <YAxis />
+        <YAxis/>
         <LineSeries 
         animation={'woobly'} 
         data={
@@ -61,9 +63,28 @@ export const GraphIncrement = () => {
           showed_data.data.filter(data=>after_psbb?data.x.getTime() > PSBB_DATE.getTime():data.x.getTime() <= PSBB_DATE.getTime())
           :showed_data.data} 
         onNearestXY= {value => setCurrValue({...value})}
+        color="#F16464"
         />
-        {currentValue ? <Hint value={currentValue} /> : null}
+        {currentValue&&
+          <Hint value={currentValue}/>
+        }
       </XYPlot>
-    </div>
+      {/* TODO: GANTI NAMA SEMANTIC MODE PSBB */}
+      <div className="grafik-increment__tool-container">
+        <div className="grafik-increment__button-group">
+          <button 
+            className={!after_psbb&&mode_psbb&&'selected'} 
+            onClick={()=> handlerPSBB(false)}>Sebelum</button>
+          <button
+            className={after_psbb&&mode_psbb&&'selected'} 
+            onClick={()=> handlerPSBB(true)}>Sesudah</button>
+        </div>
+        <div className="grafik-increment__button-group">
+          <button className={showed_data.group==='ODP'&&'selected'} onClick={()=> handlerShowedData('ODP')}>ODP</button>
+          <button className={showed_data.group==='PDP'&&'selected'} onClick={()=> handlerShowedData('PDP')}>PDP</button>
+          <button className={showed_data.group==='Positif'&&'selected'} onClick={()=> handlerShowedData('Positif')}>Positif</button>
+        </div>
+      </div>
+    </section>
   )
 }

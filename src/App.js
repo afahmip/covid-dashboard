@@ -2,7 +2,7 @@ import React from 'react';
 import './styles/App.css';
 import '../node_modules/react-vis/dist/style.css';
 import { Choropleth } from './components/Choropleth';
-import { GraphIncrement } from './components/GraphInrement'
+import { GraphIncrement } from './components/GraphIncrement'
 
 function App() {
   return (

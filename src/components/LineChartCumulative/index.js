@@ -34,11 +34,6 @@ export default class LineChartCumulative extends React.Component {
     used: 'total',
     strokeWidth: 2,
     value: false,
-    colorType: {
-      odp: '#e5f50f',
-      pdp: '#f5a80f',
-      positif: '#f50f0f'
-    }
   };
 
   initData= () => {
@@ -63,7 +58,6 @@ export default class LineChartCumulative extends React.Component {
 
   render() {
     const {
-      colorType,
       data,
       used,
       strokeWidth,
@@ -76,11 +70,19 @@ export default class LineChartCumulative extends React.Component {
       opacityType: 'literal',
       strokeWidth,
       xType: 'time',
-      onNearestX: d => this.setState({value: d})
+      onNearestX: (d, i) => {
+        const value = {
+          date: d.x,
+          odp: data.odp[used][i.index].y,
+          pdp: data.pdp[used][i.index].y,
+          positif: data.positif[used][i.index].y,
+        }
+        this.setState({value: value})
+      }
     };
-    let odpLineSeriesProps = {...lineSeriesProps, color: colorType['odp'], data: data.odp[used]} 
-    let pdpLineSeriesProps = {...lineSeriesProps, color: colorType['pdp'], data: data.pdp[used]} 
-    let positifLineSeriesProps = {...lineSeriesProps, color: colorType['positif'], data: data.positif[used]} 
+    let odpLineSeriesProps = {...lineSeriesProps, color: COLORS[0], data: data.odp[used]} 
+    let pdpLineSeriesProps = {...lineSeriesProps, color: COLORS[1], data: data.pdp[used]} 
+    let positifLineSeriesProps = {...lineSeriesProps, color: COLORS[2], data: data.positif[used]} 
   
     return (
       <>

@@ -23,6 +23,9 @@ function App() {
         Sudah 2 bulan lebih sejak pemerintah mengumumkan kasus pertama COVID-19 pada tanggal 2 Maret 2020. Himbauan hidup sehat digaungkan, termasuk pula perintah untuk menjaga jarak (<i>physical distancing</i>) dan PSBB. Sejauh manakah perkembangan kasus hingga saat ini, khususnya di kota kita tercinta, Kota Bandung?
       </p>
       <Choropleth />
+      <p className="paragraph">
+        Hingga saat ini, persebaran kasus COVID 19 terus berkembangan.
+      </p>
       <LineChartCumulative />
       <GraphIncrement/>
     </div>

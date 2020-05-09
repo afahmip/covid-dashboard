@@ -2,7 +2,8 @@ import React from 'react';
 import './styles/App.css';
 import '../node_modules/react-vis/dist/style.css';
 import { Choropleth } from './components/Choropleth';
-import { GraphIncrement } from './components/GraphIncrement'
+import { GraphIncrement } from './components/GraphIncrement';
+import ConditionGraph from './components/ConditionGraph'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       </p>
       <Choropleth />
       <GraphIncrement/>
+      <ConditionGraph/>
     </div>
   );
 }

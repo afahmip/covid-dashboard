@@ -1,16 +1,17 @@
-.grafik-increment{
+.condition-graph{
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 48px;
 }
-.grafik-increment__tool-container{
+.condition-graph__tool-container{
   width: 75%;
   margin-top: 32px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
-.grafik-increment__button-group > button{
+.condition-graph__button-group > button{
   border: none;
   box-shadow:
   0 2.8px 2.2px rgba(0, 0, 0, 0.034),
@@ -22,27 +23,26 @@
   padding: 16px 32px;
   transition: all 1s;
 }
-.grafik-increment__button-group > button:hover:not(:disabled){
+.condition-graph__button-group > button:hover:not(:disabled){
   background-color: whitesmoke;
 }
-.grafik-increment__button-group > button.selected:not(:disabled){
+.condition-graph__button-group > button.selected:not(:disabled){
   background-color: #F16464;
   color: white;
 }
-.grafik-increment__button-group > button.selected:hover:not(:disabled){
+.condition-graph__button-group > button.selected:hover:not(:disabled){
   /* background-color: rgba(#F16464,.8); */
   background-color: rgba(241,100,100,.9);
   color: white;
 }
-.grafik-increment__button-group > button:first-of-type{
+.condition-graph__button-group > button:first-of-type{
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
 }
-.grafik-increment__button-group > button:last-child{
+.condition-graph__button-group > button:last-child{
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
 }
-.grafik-increment__statistic-data{
+.condition-graph__statistic-data{
   margin-top: 16px;
 }
-

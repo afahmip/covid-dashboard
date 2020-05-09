@@ -4,33 +4,33 @@ export default function Toggle(props) {
   const toggleType = [
     {
       text: 'All',
-      value: 'all'
+      value: 'total'
     },
     {
       text: 'Perempuan',
-      value: 'w',
+      value: 'wanita',
       header: 'Jenis Kelamin'
     },
     {
-      text: 'Laki-laki',
-      value: 'm'
+      text: 'Pria',
+      value: 'pria'
     },
     {
       text: 'WNA',
-      value: 'm',
+      value: 'wna',
       header: 'Kewarganegaraan'
     },
     {
       text: 'WNI',
-      value: 'm'
+      value: 'wni'
     }
   ]
   return (
     <div className="lc-cumulative__toggle">
-      {toggleType.map(e=>(
+      {toggleType.map((e, i)=>(
         <>
           {e.header ? <h5>{e.header}</h5>: ''}
-          <label>
+          <label key={i}>
             <input 
               type='radio'
               value={e.value}

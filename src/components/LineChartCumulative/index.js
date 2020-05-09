@@ -16,6 +16,7 @@ import {
 import odp from '../../data/data_total_odp.json';
 import pdp from '../../data/data_total_pdp.json';
 import positif from '../../data/data_total_positif.json';
+import {getData} from './utils';
 import './index.scss';
 import Toggle from './Toggle';
 
@@ -26,7 +27,7 @@ export default class LineChartCumulative extends React.Component {
       pdp: [],
       positif: []
     },
-    used: 'all',
+    used: 'total',
     strokeWidth: 1,
     showMarks: true,
     value: false,
@@ -43,18 +44,9 @@ export default class LineChartCumulative extends React.Component {
   };
 
   initData= () => {
-    const odpTemp = odp.map(e=>({
-      x: new Date(e.Date),
-      y: e.Total
-    }))
-    const pdpTemp = pdp.map(e=>({
-      x: new Date(e.Date),
-      y: e.Total
-    }))
-    const positifTemp = positif.map(e=>({
-      x: new Date(e.Date),
-      y: e.Total
-    }))
+    const odpTemp = getData('odp')
+    const pdpTemp = getData('pdp')
+    const positifTemp = getData('positif')
     this.setState({
       data: {
         odp: odpTemp,
@@ -74,6 +66,7 @@ export default class LineChartCumulative extends React.Component {
   }
 
   render() {
+    console.log(this.state.data)
     const {
       colorType,
       data,
@@ -91,16 +84,16 @@ export default class LineChartCumulative extends React.Component {
       xType: 'time',
       onNearestX: d => this.setState({value: d})
     };
-    let odpLineSeriesProps = {...lineSeriesProps, color: colorType['odp'], data: data['odp']} 
-    let pdpLineSeriesProps = {...lineSeriesProps, color: colorType['pdp'], data: data['pdp']} 
-    let positifLineSeriesProps = {...lineSeriesProps, color: colorType['positif'], data: data['positif']} 
+    let odpLineSeriesProps = {...lineSeriesProps, color: colorType['odp'], data: data.odp[used]} 
+    let pdpLineSeriesProps = {...lineSeriesProps, color: colorType['pdp'], data: data.pdp[used]} 
+    let positifLineSeriesProps = {...lineSeriesProps, color: colorType['positif'], data: data.positif[used]} 
 
-    const SVGComponent = showMarks ? LineMarkSeries : LineSeries;
+    const SVGComponent = LineSeries;
   
     return (
       <div className="lc-cumulative">
         <div className="lc-cumulative__content">
-          <div className="lc-cumulative__tab">
+          {/* <div className="lc-cumulative__tab">
             <button
               className={this.state.show.odp ? 'active': ''}
               onClick={() => {
@@ -125,7 +118,7 @@ export default class LineChartCumulative extends React.Component {
                 positif: !this.state.show.positif
               }})}}
             >Positif</button>
-          </div>
+          </div> */}
           <XYPlot
             onMouseLeave={() => this.setState({value: false})}
             width={600}

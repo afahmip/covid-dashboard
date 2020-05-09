@@ -3,6 +3,7 @@ import './styles/App.css';
 import '../node_modules/react-vis/dist/style.css';
 import { Choropleth } from './components/Choropleth';
 import LineChartCumulative from './components/LineChartCumulative';
+import { GraphIncrement } from './components/GraphIncrement'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       </p>
       <Choropleth />
       <LineChartCumulative />
+      <GraphIncrement/>
     </div>
   );
 }

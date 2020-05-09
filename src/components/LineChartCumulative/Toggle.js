@@ -30,7 +30,7 @@ export default function Toggle(props) {
       {toggleType.map((e, i)=>(
         <>
           {e.header ? <h5>{e.header}</h5>: ''}
-          <label key={i}>
+          <label className={props.used === e.value ? 'active': ''}>
             <input 
               type='radio'
               value={e.value}

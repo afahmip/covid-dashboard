@@ -1,24 +1,28 @@
 import React from 'react';
-import moment from 'moment';
 import {
   XYPlot,
   XAxis,
   YAxis,
   VerticalGridLines,
   HorizontalGridLines,
-  LineMarkSeriesCanvas,
-  LineMarkSeries,
-  LineSeriesCanvas,
   LineSeries,
-  Crosshair,
-  Hint
+  Hint,
+  DiscreteColorLegend
 } from 'react-vis';
-import odp from '../../data/data_total_odp.json';
-import pdp from '../../data/data_total_pdp.json';
-import positif from '../../data/data_total_positif.json';
-import {getData} from './utils';
+import {getData, months} from './utils';
 import './index.scss';
 import Toggle from './Toggle';
+const ITEMS = [
+  'ODP',
+  'PDP',
+  'Positif',
+];
+
+const COLORS = [
+  '#e5f50f',
+  '#f5a80f',
+  '#f50f0f'
+];
 
 export default class LineChartCumulative extends React.Component {
   state = {
@@ -28,14 +32,8 @@ export default class LineChartCumulative extends React.Component {
       positif: []
     },
     used: 'total',
-    strokeWidth: 1,
-    showMarks: true,
+    strokeWidth: 2,
     value: false,
-    show: {
-      odp: true,
-      pdp: true,
-      positif: true
-    },
     colorType: {
       odp: '#e5f50f',
       pdp: '#f5a80f',
@@ -56,8 +54,6 @@ export default class LineChartCumulative extends React.Component {
     })
   }
   onChangeToggle = (e) => {
-    e.preventDefault();
-    console.log(e.target.value)
     this.setState({used: e.target.value})
   }
   
@@ -66,13 +62,11 @@ export default class LineChartCumulative extends React.Component {
   }
 
   render() {
-    console.log(this.state.data)
     const {
       colorType,
       data,
       used,
       strokeWidth,
-      showMarks,
       value
     } = this.state;
     const lineSeriesProps = {
@@ -87,56 +81,45 @@ export default class LineChartCumulative extends React.Component {
     let odpLineSeriesProps = {...lineSeriesProps, color: colorType['odp'], data: data.odp[used]} 
     let pdpLineSeriesProps = {...lineSeriesProps, color: colorType['pdp'], data: data.pdp[used]} 
     let positifLineSeriesProps = {...lineSeriesProps, color: colorType['positif'], data: data.positif[used]} 
-
-    const SVGComponent = LineSeries;
   
     return (
-      <div className="lc-cumulative">
-        <div className="lc-cumulative__content">
-          {/* <div className="lc-cumulative__tab">
-            <button
-              className={this.state.show.odp ? 'active': ''}
-              onClick={() => {
-                return this.setState({show: {
-                ...this.state.show,
-                odp: !this.state.show.odp
-              }})}}
-            >ODP</button>
-            <button
-              className={this.state.show.pdp ? 'active': ''}
-              onClick={() => {
-                return this.setState({show: {
-                ...this.state.show,
-                pdp: !this.state.show.pdp
-              }})}}
-            >PDP</button>
-            <button
-              className={this.state.show.positif ? 'active': ''}
-              onClick={() => {
-                return this.setState({show: {
-                ...this.state.show,
-                positif: !this.state.show.positif
-              }})}}
-            >Positif</button>
-          </div> */}
-          <XYPlot
-            onMouseLeave={() => this.setState({value: false})}
-            width={600}
-            height={300}
-            className="lc-cumulative__figure"
-          >
-            <VerticalGridLines />
-            <HorizontalGridLines />
-            <XAxis style={{text: {fontSize: 8}}} tickFormat={(v)=>moment(v).format('l')}/>
-            <YAxis style={{text: {fontSize: 8}}}/>
-            <SVGComponent {...odpLineSeriesProps} />
-            <SVGComponent {...pdpLineSeriesProps} />       
-            <SVGComponent {...positifLineSeriesProps} />
-            {value && <Hint value={value} />}
-          </XYPlot>
+      <>
+        <h3 className="grafik-increment__title">Grafik Penyebaran Covid 19</h3>
+        <div className="lc-cumulative">
+          <div className="lc-cumulative__content">
+            <XYPlot
+              onMouseLeave={() => this.setState({value: false})}
+              width={600}
+              height={300}
+              className="lc-cumulative__figure"
+            >
+              <VerticalGridLines />
+              <HorizontalGridLines />
+              <XAxis 
+                style={{text: {fontSize: 8}}} 
+                tickFormat={t=> 
+                <tspan>
+                  <tspan x="0">{`${new Date(t).getDate()}`}</tspan>
+                  <tspan x="0" dy="1em">{`${months[new Date(t).getMonth()]}`}</tspan>
+                </tspan>}/>
+              <YAxis style={{text: {fontSize: 8}}}/>
+              <LineSeries {...odpLineSeriesProps} />
+              <LineSeries {...pdpLineSeriesProps} />       
+              <LineSeries {...positifLineSeriesProps} />
+              {value && <Hint value={value} />}
+              
+            </XYPlot>
+            <DiscreteColorLegend
+              colors={COLORS}
+              orientation="horizontal"
+              width={300}
+              items={ITEMS}
+              strokeWidth='2'
+            />
+          </div>
+          <Toggle onChange={this.onChangeToggle} used={this.state.used}/>
         </div>
-        <Toggle onChange={this.onChangeToggle} used={this.state.used}/>
-      </div>
+      </>
     );
   }
 }

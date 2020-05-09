@@ -41,7 +41,7 @@ export const GraphIncrement = () => {
   }
   return (
     <section className="grafik-increment">
-      <h1 className="grafik-increment__title">Grafik Kenaikan Warga Covid 19 ({showed_data.group}) {mode_psbb&&`${after_psbb?'Sesudah':'Sebelum'} PSBB`}</h1>
+      <h3 className="grafik-increment__title">Grafik Kenaikan Warga Covid 19 ({showed_data.group}) {mode_psbb&&`${after_psbb?'Sesudah':'Sebelum'} PSBB`}</h3>
       <XYPlot 
         xType="time"
         width={900} 

@@ -11,6 +11,7 @@ a {
 button {
   border: none;
   background: white;
+  font-family: inherit;
 }
 
 /* Custom styles */
@@ -46,12 +47,27 @@ button {
   font-size: 0.9rem;
   color: rgb(78, 78, 78);
   line-height: 1.5rem;
+  margin-bottom: 5rem;
 }
 
 .paragraph {
-  margin: 1rem 10rem;
-  font-size: 1.1rem;
-  line-height: 2.1rem;
+  font-size: 1rem;
+  line-height: 1.9rem;
+}
+
+.section {
+  font-size: 1.25rem;
+}
+
+.center-text {
+  margin: 1rem auto;
+  width: 600px;
+}
+
+.left-text {
+  text-align: left;
+  width: 600px;
+  margin: 5rem auto;
 }
 
 /* Media queries */

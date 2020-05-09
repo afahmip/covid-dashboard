@@ -65,7 +65,10 @@ export class Choropleth extends React.Component {
       let numbers = {...d};
       let name = d.Kecamatan.split(' ').join('');
 
-      if (option === status.POSITIVE) amount = d.Positif;
+      if (option === status.POSITIVE) {
+        amount = d.Positif;
+        delete numbers.Positif;
+      }
       if (option === status.PDP) amount = d.Dirawat + d.Selesai;
       if (option === status.ODP) amount = d.Dipantau + d.Selesai;
       if (amount > maxAmount) maxAmount = amount;
@@ -210,6 +213,7 @@ export class Choropleth extends React.Component {
               <div className="gradient" style={gradientStyle} />
               <div className="values">
                 <p>{this.state.maxAmount}</p>
+                <p>{Math.floor(this.state.maxAmount / 2)}</p>
                 <p>0</p>
               </div>
             </div>

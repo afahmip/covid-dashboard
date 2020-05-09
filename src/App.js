@@ -18,10 +18,16 @@ function App() {
         <a href="https://github.com/ahmadfahmip">Luhtfi Ahmad</a>, &&nbsp;
         <a href="https://github.com/ahmadfahmip">Ilyas Mustafa</a>
       </p>
-      <p className="paragraph">
+      <p className="center-text paragraph">
         Sudah 2 bulan lebih sejak pemerintah mengumumkan kasus pertama COVID-19 pada tanggal 2 Maret 2020. Himbauan hidup sehat digaungkan, termasuk pula perintah untuk menjaga jarak (<i>physical distancing</i>) dan PSBB. Sejauh manakah perkembangan kasus hingga saat ini, khususnya di kota kita tercinta, Kota Bandung?
       </p>
       <Choropleth />
+      <div className="left-text">
+        <h2 className="section">COVID Dalam Angka</h2>
+        <p className="paragraph">
+          Sudah 2 bulan lebih sejak pemerintah mengumumkan kasus pertama COVID-19 pada tanggal 2 Maret 2020. Himbauan hidup sehat digaungkan, termasuk pula perintah untuk menjaga jarak (<i>physical distancing</i>) dan PSBB. Sejauh manakah perkembangan kasus hingga saat ini, khususnya di kota kita tercinta, Kota Bandung?
+        </p>
+      </div>
       <GraphIncrement/>
     </div>
   );

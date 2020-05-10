@@ -1,0 +1,51 @@
+.condition-graph{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 48px;
+}
+.condition-graph__tool-container{
+  width: 75%;
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+}
+.condition-graph__button-group > button{
+  border: none;
+  box-shadow:
+  0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+  0 12.5px 10px rgba(0, 0, 0, 0.06),
+  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+  0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+  0 100px 80px rgba(0, 0, 0, 0.12);
+  padding: 16px 32px;
+  transition: all 1s;
+}
+.condition-graph__button-group > button:hover:not(:disabled){
+  background-color: whitesmoke;
+}
+.condition-graph__button-group > button.selected:not(:disabled){
+  box-shadow:
+    inset 0px -6px 10px rgba(255, 255, 255, 1),
+    inset 0px 4px 15px rgba(0, 0, 0, 0.15),
+    0px 4px 10px rgba(0, 0, 0, 0.03);
+}
+.condition-graph__button-group > button:active {
+  box-shadow:
+    inset 0px -6px 10px rgba(255, 255, 255, 1),
+    inset 0px 4px 15px rgba(0, 0, 0, 0.15),
+    0px 4px 10px rgba(0, 0, 0, 0.03);
+}
+.condition-graph__button-group > button:first-of-type{
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+.condition-graph__button-group > button:last-child{
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+.condition-graph__statistic-data{
+  margin-top: 16px;
+}

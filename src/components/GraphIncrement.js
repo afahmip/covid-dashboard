@@ -33,7 +33,10 @@ export const GraphIncrement = () => {
   const [currentValue,setCurrValue] = useState(null)
   const handlerShowedData = (val) =>{
     setShowedData({group:val,data:all_data[val]})
+    setAfterPSBB(true)
   }
+  const average_after_psbb = Math.floor(showed_data.data.filter(data=>data.x.getTime() > PSBB_DATE.getTime()).reduce((prev,curr)=> prev+=curr.y,0)/showed_data.data.length)
+  const average_before_psbb = Math.floor(showed_data.data.filter(data=>data.x.getTime() <= PSBB_DATE.getTime()).reduce((prev,curr)=> prev+=curr.y,0)/showed_data.data.length)
   const handlerPSBB = (val) => {
     if((after_psbb === val)&&mode_psbb) setModePSBB(false)
     else setModePSBB(true)
@@ -41,10 +44,9 @@ export const GraphIncrement = () => {
   }
   return (
     <section className="grafik-increment">
-      {/* <h1 className="grafik-increment__title">Grafik Kenaikan Warga Covid 19 ({showed_data.group}) {mode_psbb&&`${after_psbb?'Sesudah':'Sebelum'} PSBB`}</h1> */}
       <XYPlot 
         xType="time"
-        width={1000} 
+        width={900} 
         height={300}
         onMouseLeave={() => setCurrValue(null)}
         >
@@ -69,7 +71,20 @@ export const GraphIncrement = () => {
           <Hint value={currentValue}/>
         }
       </XYPlot>
-      {/* TODO: GANTI NAMA SEMANTIC MODE PSBB */}
+      <div className="grafik-increment__statistic-data">
+        <p>
+          <b>Rata-rata kenaikan: </b>
+          {average_after_psbb} kasus&nbsp;
+          (
+          {Math.abs(average_after_psbb-average_before_psbb)} 
+          {after_psbb&&average_after_psbb>average_before_psbb&&' kasus lebih banyak dibandingkan sebelum psbb'}
+          {after_psbb&&average_after_psbb<average_before_psbb&&' kasus lebih sedikit dibandingkan sebelum psbb'}
+          {!after_psbb&&average_after_psbb<average_before_psbb&&' kasus lebih banyak dibandingkan sesudah psbb'}
+          {!after_psbb&&average_after_psbb>average_before_psbb&&' kasus lebih sedikitdibandingkan sesudah psbb'}
+
+          )
+        </p>
+      </div>
       <div className="grafik-increment__tool-container">
         <div className="grafik-increment__button-group">
           <button 

@@ -214,29 +214,6 @@ const ConditionGraph = () => {
           <button className={nameGroup==='positif'&&'selected'} onClick={()=> handlerChoosenData('positif')}>Positif</button>
         </div>
       </div>
-      <XYPlot yDomain={[0,25]} stackBy="y" width={300} height={300}>
-      <VerticalGridLines />
-      <HorizontalGridLines />
-        <XAxis />
-        <YAxis />
-        
-        <AreaSeries
-          color="red"
-          data={[
-            {x: 1, y: 15},
-            {x: 2, y: 5},
-            {x: 3, y: 10}
-          ]}
-        />
-        <AreaSeries
-          color="green"
-          data={[
-            {x: 1, y: 10},
-            {x: 2, y: 20},
-            {x: 3, y: 15}
-          ]}
-        />
-      </XYPlot>
     </div>
   );
 };

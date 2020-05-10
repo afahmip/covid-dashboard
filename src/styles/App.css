@@ -47,7 +47,8 @@ button {
   font-size: 0.9rem;
   color: rgb(78, 78, 78);
   line-height: 1.5rem;
-  margin-bottom: 5rem;
+  margin: 0 auto 8rem auto;
+  width: 500px;
 }
 
 .paragraph {

@@ -3,6 +3,10 @@ import ReactSlider from 'react-slider';
 import { dateToDMY } from '../helper';
 import '../styles/AgeSlider.scss';
 import positiveData from '../data/data_usia_positif.json';
+import babyPic from '../assets/baby.png';
+import youngPic from '../assets/young.png';
+import adultPic from '../assets/adult.png';
+import oldPic from '../assets/old.png';
 
 export class AgeSlider extends React.Component {
   state = {
@@ -18,11 +22,6 @@ export class AgeSlider extends React.Component {
     const adult = date['Kategori-4'] + date['Kategori-5'];
     const old = date['Kategori-6'] + date['Kategori-7'] + date['Kategori-8'] + date['Kategori-9'];
     const total = baby + young + adult + old;
-    const value =
-      Array(baby).fill('👶🏼').join('') +
-      Array(young).fill('👦🏻').join('') +
-      Array(adult).fill('🧑🏻').join('') +
-      Array(old).fill('👴🏼').join('');
 
     let className;
     if (total <= 250) className = 'tiny';
@@ -30,7 +29,13 @@ export class AgeSlider extends React.Component {
     if (total <= 120) className = 'medium';
     if (total <= 90) className = 'large';
     if (total <= 70) className = 'giant';
-    return <p className={className}>{value}</p>;
+
+    let output = [];
+    for (let i = 0; i < baby; i++) output.push(<img src={babyPic} alt="" />);
+    for (let i = 0; i < young; i++) output.push(<img src={youngPic} alt="" />);
+    for (let i = 0; i < adult; i++) output.push(<img src={adultPic} alt="" />);
+    for (let i = 0; i < old; i++) output.push(<img src={oldPic} alt="" />);
+    return <div className={`pics ${className}`}>{output}</div>;
   }
 
   initDates = () => {

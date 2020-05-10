@@ -1,7 +1,7 @@
 .age-slider-section {
   display: flex;
   flex-direction: row;
-  margin: 5rem 0 15rem 0;
+  margin: 8rem 0 15rem 0;
 }
 
 .age-slider-text {
@@ -30,28 +30,31 @@
   font-weight: normal;
 }
 
-.age-slider-wrapper > p {
+.age-slider-wrapper > .pics {
   text-align: right;
   font-size: 1.5rem;
-  height: 240px;
+  height: 260px;
 
-  &.giant {
-    font-size: 2.2rem;
-    line-height: 3.1rem;
+  &.giant img {
+    width: 35px;
+    height: 35px;
   }
-  &.large {
-    font-size: 2rem;
-    line-height: 2.75rem;
+  &.large img {
+    width: 34px;
+    height: 34px;
   }
-  &.medium {
-    font-size: 1.75rem;
-    line-height: 2.35rem;
+  &.medium img {
+    width: 28px;
+    height: 28px;
   }
-  &.small {
-    font-size: 1.35rem;
-    line-height: 2.1rem;
+  &.small img {
+    width: 22px;
+    height: 22px;
   }
-  &.tiny { font-size: 1rem; }
+  &.tiny img {
+    width: 18px;
+    height: 18px;
+  }
 }
 
 .age-slider .thumb {

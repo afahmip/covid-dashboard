@@ -85,6 +85,9 @@ export const GraphIncrement = () => {
           <button className={showed_data.group==='Positif'&&'selected'} onClick={()=> handlerShowedData('Positif')}>Positif</button>
         </div>
       </div>
+      <p className="caption">
+        Grafik pertambahan kasus harian. Pilih antara "sebelum" dan "sesudah" untuk melihat perubahan sebelum dan sesudah PSBB.
+      </p>
     </section>
   )
 }

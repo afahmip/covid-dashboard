@@ -19,7 +19,7 @@ const ITEMS = [
 ];
 
 const COLORS = [
-  '#e5f50f',
+  '#056CD1',
   '#f5a80f',
   '#f50f0f'
 ];

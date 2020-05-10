@@ -11,17 +11,17 @@ function App() {
     <div className="App">
       <p className="main-subtitle">Visualisasi Data</p>
       <h1 className="main-title">
-        Bandung dan Corona:<br/>
-        Seberapa Siapkah Kita?
+        Bandung dan COVID-19:<br/>
+        Sudah Sejauh Apa?
       </h1>
       <p className="author">
         Oleh&nbsp;
         <a href="https://github.com/ahmadfahmip">Ahmad Fahmi</a>,&nbsp;
-        <a href="https://github.com/ahmadfahmip">Luhtfi Ahmad</a>, &&nbsp;
-        <a href="https://github.com/ahmadfahmip">Ilyas Mustafa</a>
+        <a href="https://www.linkedin.com/in/luthfi-hadiana/">Luhtfi Ahmad</a>, &&nbsp;
+        <a href="https://www.linkedin.com/in/m-ilyas-mustafa/">Ilyas Mustafa</a>
       </p>
       <p className="center-text paragraph">
-        Sudah 2 bulan lebih sejak pemerintah mengumumkan kasus pertama COVID-19 pada tanggal 2 Maret 2020. Himbauan hidup sehat digaungkan, termasuk pula perintah untuk menjaga jarak (<i>physical distancing</i>) dan PSBB. Sejauh manakah perkembangan kasus hingga saat ini, khususnya di kota kita tercinta, Kota Bandung?
+        Sudah 2 bulan lebih sejak pemerintah mengumumkan kasus pertama COVID-19 pada tanggal 2 Maret 2020. Himbauan hidup sehat digaungkan, termasuk pula perintah untuk menjaga jarak (<i>physical distancing</i>) dan PSBB. Sejauh manakah perkembangan kasus hingga saat ini, khususnya di Kota Bandung?
       </p>
       <Choropleth />
       <div className="left-text">

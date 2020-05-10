@@ -33,7 +33,7 @@ export default class LineChartCumulative extends React.Component {
     },
     used: 'total',
     strokeWidth: 2,
-    value: false,
+    value: false
   };
 
   initData= () => {
@@ -48,6 +48,7 @@ export default class LineChartCumulative extends React.Component {
       }
     })
   }
+
   onChangeToggle = (e) => {
     this.setState({used: e.target.value})
   }
@@ -69,9 +70,10 @@ export default class LineChartCumulative extends React.Component {
       sizeRange: [5, 15],
       opacityType: 'literal',
       strokeWidth,
-      xType: 'time',
-      onNearestX: (d, i) => {
+      xType: 'time', 
+      onNearestXY: (d, i) => {
         const value = {
+          ...d,
           date: d.x,
           odp: data.odp[used][i.index].y,
           pdp: data.pdp[used][i.index].y,
@@ -108,7 +110,9 @@ export default class LineChartCumulative extends React.Component {
               <LineSeries {...odpLineSeriesProps} />
               <LineSeries {...pdpLineSeriesProps} />
               <LineSeries {...positifLineSeriesProps} />
-              {value && <Hint value={value} />}
+              {value && <Hint value={value} align={{horizontal: Hint.ALIGN.AUTO, vertical: Hint.ALIGN.TOP_EDGE}}/>}
+              {/* {value && 
+              <Crosshair values={[value]} />} */}
             </XYPlot>
             <DiscreteColorLegend
               colors={COLORS}

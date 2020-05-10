@@ -4,9 +4,10 @@ import {
   XAxis, 
   YAxis, 
   AreaSeries,
-  Crosshair,
+  Hint,
   VerticalGridLines,
-  HorizontalGridLines
+  HorizontalGridLines,
+  DiscreteColorLegend
 } from 'react-vis';
 import '../styles/ConditionGraph.css';
 import condition_raw_positif from '../data/data_condition_positif.json'
@@ -67,6 +68,36 @@ const allData = {
   odp: process_odp(),
   positif: process_positif()
 }
+const ITEMS = {
+  pdp: [
+    'selesai',
+    'pengawasan'
+  ],
+  odp:[
+    'selesai',
+    'pemantauan'
+  ],
+  positif:[
+    'sembuh',
+    'dirawat',
+    'meninggal'
+  ]
+}
+const COLORS = {
+  pdp: [
+    '#29a97e',
+    '#f5a80f'
+  ],
+  odp:[
+    '#29a97e',
+    '#f5a80f'
+  ],
+  positif:[
+    '#29a97e',
+    '#f5a80f',
+    '#F16464'
+  ]
+}
 const ConditionGraph = () => {
   const [percentShow, setPercentShow] = useState(false)
   const [currentValue,setCurrValue] = useState(null)
@@ -75,6 +106,36 @@ const ConditionGraph = () => {
   const handlerChoosenData = (val) => {
     setChoosenData(allData[val])
     setnameGroup(val)
+  }
+  const dataHint = (name_param,index)=>{
+    console.log(index.index)
+    if (name_param==='odp') return {
+      pemantauan:condition_raw_odp[index.index].Pemantauan,
+      selesai:condition_raw_odp[index.index].Selesai
+    } 
+    else if(name_param==='pdp') return {
+      pengawasan:condition_raw_pdp[index.index].Pengawasan,
+      selesai:condition_raw_odp[index.index].Selesai
+    }
+    else return {
+      sembuh:condition_raw_positif[index.index].Sembuh,
+      meninggal:condition_raw_positif[index.index].Meninggal,
+      rawat:condition_raw_positif[index.index].Rawat,
+    }
+  }
+  const areaSeries = (name_param,color,data_percent,data_kum) =>{
+    return (
+      nameGroup===name_param && 
+      <AreaSeries
+      animation={'woobly'}
+      color={color}
+      data={percentShow?data_percent:data_kum}
+      onNearestXY={(v,i)=> {
+        setCurrValue({
+        ...v,
+        ...dataHint(name_param,i)
+      })}}
+      />)
   }
   return (
     <div className="condition-graph">
@@ -95,48 +156,26 @@ const ConditionGraph = () => {
         />
         <YAxis 
           tickFormat={v=>(percentShow?`${v}%`:(v>=1000?(`${v/1000}k`):v))}
+          style={{text: {fontSize: 8}}}
         />
-        {(nameGroup==='odp'||nameGroup==='pdp')&&<AreaSeries
-          animation={'woobly'}
-          className="area-elevated-series-1"
-          color="#29a97e"
-          onNearestXY= {value => setCurrValue({...value})}
-          data={percentShow?choosenData.series_percent_selesai:choosenData.series_selesai}
-        />}
-        {nameGroup==='odp'&&<AreaSeries
-          animation={'woobly'}
-          className="area-elevated-series-2"
-          color="#dfd060"
-          data={percentShow?choosenData.series_percent_pemantauan:choosenData.series_pemantauan}
-        />}
-         {nameGroup==='pdp'&&<AreaSeries
-          animation={'woobly'}
-          className="area-elevated-series-2"
-          color="#dfd060"
-          data={percentShow?choosenData.series_percent_pengawasan:choosenData.series_pengawasan}
-        />}
-        {nameGroup==='positif'&&<AreaSeries
-          animation={'woobly'}
-          className="area-elevated-series-2"
-          color="#F16464"
-          data={percentShow?choosenData.series_percent_meninggal:choosenData.series_meninggal}
-        />}
-        {nameGroup==='positif'&&<AreaSeries
-          animation={'woobly'}
-          className="area-elevated-series-2"
-          color="#29a97e"
-          data={percentShow?choosenData.series_percent_sembuh:choosenData.series_sembuh}
-        />}
-        {nameGroup==='positif'&&<AreaSeries
-          animation={'woobly'}
-          className="area-elevated-series-2"
-          color="#dfd060"
-          data={percentShow?choosenData.series_percent_rawat:choosenData.series_rawat}
-        />}
+        {areaSeries('odp','#29a97e',choosenData.series_percent_selesai,choosenData.series_selesai)}
+        {areaSeries('odp','#f5a80f',choosenData.series_percent_pemantauan,choosenData.series_pemantauan)}
+        {areaSeries('pdp','#29a97e',choosenData.series_percent_selesai,choosenData.series_selesai)}
+        {areaSeries('pdp','#f5a80f',choosenData.series_percent_pengawasan,choosenData.series_pengawasan)}
+        {areaSeries('positif','#F16464',choosenData.series_percent_meninggal,choosenData.series_meninggal)}
+        {areaSeries('positif','#29a97e',choosenData.series_percent_sembuh,choosenData.series_sembuh)}
+        {areaSeries('positif','#f5a80f',choosenData.series_percent_rawat,choosenData.series_rawat)}
         {currentValue&&
-          <Crosshair value={currentValue}/>
+          <Hint value={currentValue} align={{horizontal: Hint.ALIGN.AUTO, vertical: Hint.ALIGN.TOP_EDGE}}/>
         }
       </XYPlot>
+      <DiscreteColorLegend
+        colors={COLORS[nameGroup]}
+        orientation="horizontal"
+        width={300}
+        items={ITEMS[nameGroup]}
+        strokeWidth='10'
+      />
       <div className="grafik-increment__tool-container">
         <div className="grafik-increment__button-group">
           <button

@@ -27,13 +27,16 @@
   background-color: whitesmoke;
 }
 .condition-graph__button-group > button.selected:not(:disabled){
-  background-color: #F16464;
-  color: white;
+  box-shadow:
+    inset 0px -6px 10px rgba(255, 255, 255, 1),
+    inset 0px 4px 15px rgba(0, 0, 0, 0.15),
+    0px 4px 10px rgba(0, 0, 0, 0.03);
 }
-.condition-graph__button-group > button.selected:hover:not(:disabled){
-  /* background-color: rgba(#F16464,.8); */
-  background-color: rgba(241,100,100,.9);
-  color: white;
+.condition-graph__button-group > button:active {
+  box-shadow:
+    inset 0px -6px 10px rgba(255, 255, 255, 1),
+    inset 0px 4px 15px rgba(0, 0, 0, 0.15),
+    0px 4px 10px rgba(0, 0, 0, 0.03);
 }
 .condition-graph__button-group > button:first-of-type{
   border-top-left-radius: 15px;

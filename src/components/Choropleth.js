@@ -187,26 +187,26 @@ export class Choropleth extends React.Component {
               <button
                 onClick={() => this.chooseOption(status.POSITIVE)}
                 className={`
-                  choropleth-option positive
+                  choropleth-option
                   ${activeOption === status.POSITIVE ? 'active' : ''}
                 `}>
-                <div />Positif
+                Positif
               </button>
               <button
                 onClick={() => this.chooseOption(status.PDP)}
                 className={`
-                  choropleth-option pdp
+                  choropleth-option
                   ${activeOption === status.PDP ? 'active' : ''}
                 `}>
-                <div />PDP
+                PDP
               </button>
               <button
                 onClick={() => this.chooseOption(status.ODP)}
                 className={`
-                  choropleth-option odp
+                  choropleth-option
                   ${activeOption === status.ODP ? 'active' : ''}
                 `}>
-                <div />ODP
+                ODP
               </button>
             </div>
             <div className="choropleth-gradient">

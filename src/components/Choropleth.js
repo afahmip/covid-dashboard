@@ -1,4 +1,5 @@
 import React from 'react';
+import Fade from 'react-reveal/Fade';
 import { scaleLinear } from "d3-scale";
 import ReactTooltip from "react-tooltip";
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
@@ -178,45 +179,51 @@ export class Choropleth extends React.Component {
     return (
       <>
         <div className="choropleth-wrapper">
-          <div className="choropleth">
-            {this.state.data ? this.renderMap() : null}
-          </div>
+          <Fade bottom>
+            <div className="choropleth">
+              {this.state.data ? this.renderMap() : null}
+            </div>
+          </Fade>
           <div className="choropleth-toolbar">
-            <div className="choropleth-toggles">
-              <h1>Pilih salah satu data<br/>di bawah ini:</h1>
-              <button
-                onClick={() => this.chooseOption(status.POSITIVE)}
-                className={`
-                  choropleth-option
-                  ${activeOption === status.POSITIVE ? 'active' : ''}
-                `}>
-                Positif
-              </button>
-              <button
-                onClick={() => this.chooseOption(status.PDP)}
-                className={`
-                  choropleth-option
-                  ${activeOption === status.PDP ? 'active' : ''}
-                `}>
-                PDP
-              </button>
-              <button
-                onClick={() => this.chooseOption(status.ODP)}
-                className={`
-                  choropleth-option
-                  ${activeOption === status.ODP ? 'active' : ''}
-                `}>
-                ODP
-              </button>
-            </div>
-            <div className="choropleth-gradient">
-              <div className="gradient" style={gradientStyle} />
-              <div className="values">
-                <p>{this.state.maxAmount}</p>
-                <p>{Math.floor(this.state.maxAmount / 2)}</p>
-                <p>0</p>
+            <Fade bottom delay={500} cascade>
+              <div className="choropleth-toggles">
+                <h1>Pilih salah satu data<br/>di bawah ini:</h1>
+                <button
+                  onClick={() => this.chooseOption(status.POSITIVE)}
+                  className={`
+                    choropleth-option
+                    ${activeOption === status.POSITIVE ? 'active' : ''}
+                  `}>
+                  Positif
+                </button>
+                <button
+                  onClick={() => this.chooseOption(status.PDP)}
+                  className={`
+                    choropleth-option
+                    ${activeOption === status.PDP ? 'active' : ''}
+                  `}>
+                  PDP
+                </button>
+                <button
+                  onClick={() => this.chooseOption(status.ODP)}
+                  className={`
+                    choropleth-option
+                    ${activeOption === status.ODP ? 'active' : ''}
+                  `}>
+                  ODP
+                </button>
               </div>
-            </div>
+            </Fade>
+            <Fade>
+              <div className="choropleth-gradient">
+                <div className="gradient" style={gradientStyle} />
+                <div className="values">
+                  <p>{this.state.maxAmount}</p>
+                  <p>{Math.floor(this.state.maxAmount / 2)}</p>
+                  <p>0</p>
+                </div>
+              </div>
+            </Fade>
           </div>
         </div>
         <p className="caption">

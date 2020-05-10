@@ -15,7 +15,7 @@ const ODPARRAY = [total_odp, gender_odp, nat_odp, usia_odp]
 const PDPARRAY = [total_pdp, gender_pdp, nat_pdp, usia_pdp]
 const POSITIFARRAY = [total_positif, gender_positif, nat_positif, usia_positif]
 export function getData(type) {
-  let data = type === 'pdp' ? PDPARRAY : 
+  let data = type === 'pdp' ? PDPARRAY :
             type === 'odp' ? ODPARRAY : POSITIFARRAY;
   return {
     total: data[0].map(e=>({

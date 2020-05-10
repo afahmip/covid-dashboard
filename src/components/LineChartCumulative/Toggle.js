@@ -1,4 +1,5 @@
 import React from 'react'
+import Fade from 'react-reveal/Fade';
 
 export default function Toggle(props) {
   const toggleType = [
@@ -28,7 +29,7 @@ export default function Toggle(props) {
   return (
     <div className="lc-cumulative__toggle">
       {toggleType.map((e, i)=>(
-        <>
+        <Fade bottom>
           {e.header ? <h5>{e.header}</h5>: ''}
           <label className={props.used === e.value ? 'active': ''}>
             <input
@@ -40,7 +41,7 @@ export default function Toggle(props) {
             />
             {e.text}
           </label>
-        </>
+        </Fade>
       ))}
     </div>
   )

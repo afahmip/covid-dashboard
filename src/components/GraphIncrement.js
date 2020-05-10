@@ -1,8 +1,8 @@
 import React,{useState} from 'react'
 import {
-  XYPlot, 
-  XAxis, 
-  YAxis, 
+  XYPlot,
+  XAxis,
+  YAxis,
   LineSeries,
   Hint
 } from 'react-vis';
@@ -44,26 +44,26 @@ export const GraphIncrement = () => {
   }
   return (
     <section className="grafik-increment">
-      <XYPlot 
+      <XYPlot
         xType="time"
-        width={900} 
+        width={1000}
         height={300}
         onMouseLeave={() => setCurrValue(null)}
         >
-        <XAxis 
+        <XAxis
           // hideTicks
-          tickFormat={t=> 
+          tickFormat={t=>
           <tspan>
             <tspan x="0">{`${t.getDate()}`}</tspan>
             <tspan x="0" dy="1em">{`${months[t.getMonth()]}`}</tspan>
           </tspan>}/>
         <YAxis/>
-        <LineSeries 
-        animation={'wobbly'} 
+        <LineSeries
+        animation={'wobbly'}
         data={
           mode_psbb?
           showed_data.data.filter(data=>after_psbb?data.x.getTime() > PSBB_DATE.getTime():data.x.getTime() <= PSBB_DATE.getTime())
-          :showed_data.data} 
+          :showed_data.data}
         onNearestXY= {value => setCurrValue({...value})}
         color="#F16464"
         />
@@ -76,7 +76,7 @@ export const GraphIncrement = () => {
           <b>Rata-rata kenaikan: </b>
           {average_after_psbb} kasus&nbsp;
           (
-          {Math.abs(average_after_psbb-average_before_psbb)} 
+          {Math.abs(average_after_psbb-average_before_psbb)}
           {after_psbb&&average_after_psbb>average_before_psbb&&' kasus lebih banyak dibandingkan sebelum psbb'}
           {after_psbb&&average_after_psbb<average_before_psbb&&' kasus lebih sedikit dibandingkan sebelum psbb'}
           {!after_psbb&&average_after_psbb<average_before_psbb&&' kasus lebih banyak dibandingkan sesudah psbb'}
@@ -86,11 +86,11 @@ export const GraphIncrement = () => {
       </div>
       <div className="grafik-increment__tool-container">
         <div className="grafik-increment__button-group">
-          <button 
-            className={!after_psbb&&mode_psbb&&'selected'} 
+          <button
+            className={!after_psbb&&mode_psbb&&'selected'}
             onClick={()=> handlerPSBB(false)}>Sebelum</button>
           <button
-            className={after_psbb&&mode_psbb&&'selected'} 
+            className={after_psbb&&mode_psbb&&'selected'}
             onClick={()=> handlerPSBB(true)}>Sesudah</button>
         </div>
         <div className="grafik-increment__button-group">

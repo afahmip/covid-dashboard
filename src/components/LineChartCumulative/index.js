@@ -1,4 +1,5 @@
 import React from 'react';
+import Fade from 'react-reveal/Fade';
 import {
   XYPlot,
   XAxis,
@@ -52,7 +53,7 @@ export default class LineChartCumulative extends React.Component {
   onChangeToggle = (e) => {
     this.setState({used: e.target.value})
   }
-  
+
   componentDidMount() {
     this.initData()
   }
@@ -70,7 +71,7 @@ export default class LineChartCumulative extends React.Component {
       sizeRange: [5, 15],
       opacityType: 'literal',
       strokeWidth,
-      xType: 'time', 
+      xType: 'time',
       onNearestXY: (d, i) => {
         const value = {
           ...d,
@@ -82,13 +83,12 @@ export default class LineChartCumulative extends React.Component {
         this.setState({value: value})
       }
     };
-    let odpLineSeriesProps = {...lineSeriesProps, color: COLORS[0], data: data.odp[used]} 
-    let pdpLineSeriesProps = {...lineSeriesProps, color: COLORS[1], data: data.pdp[used]} 
-    let positifLineSeriesProps = {...lineSeriesProps, color: COLORS[2], data: data.positif[used]} 
-  
+    let odpLineSeriesProps = {...lineSeriesProps, color: COLORS[0], data: data.odp[used]}
+    let pdpLineSeriesProps = {...lineSeriesProps, color: COLORS[1], data: data.pdp[used]}
+    let positifLineSeriesProps = {...lineSeriesProps, color: COLORS[2], data: data.positif[used]}
+
     return (
-      <>
-        {/* <h3 className="grafik-increment__title">Grafik Penyebaran Covid 19</h3> */}
+      <Fade bottom cascade>
         <div className="lc-cumulative">
           <div className="lc-cumulative__content">
             <XYPlot
@@ -99,9 +99,9 @@ export default class LineChartCumulative extends React.Component {
             >
               <VerticalGridLines />
               <HorizontalGridLines />
-              <XAxis 
-                style={{text: {fontSize: 8}}} 
-                tickFormat={t=> 
+              <XAxis
+                style={{text: {fontSize: 8}}}
+                tickFormat={t=>
                 <tspan>
                   <tspan x="0">{`${new Date(t).getDate()}`}</tspan>
                   <tspan x="0" dy="1em">{`${months[new Date(t).getMonth()]}`}</tspan>
@@ -111,7 +111,7 @@ export default class LineChartCumulative extends React.Component {
               <LineSeries {...pdpLineSeriesProps} />
               <LineSeries {...positifLineSeriesProps} />
               {value && <Hint value={value} align={{horizontal: Hint.ALIGN.AUTO, vertical: Hint.ALIGN.TOP_EDGE}}/>}
-              {/* {value && 
+              {/* {value &&
               <Crosshair values={[value]} />} */}
             </XYPlot>
             <DiscreteColorLegend
@@ -124,7 +124,7 @@ export default class LineChartCumulative extends React.Component {
           </div>
           <Toggle onChange={this.onChangeToggle} used={this.state.used}/>
         </div>
-      </>
+      </Fade>
     );
   }
 }

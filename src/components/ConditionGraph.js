@@ -1,8 +1,9 @@
 import React,{useState} from 'react';
+import Fade from 'react-reveal/Fade';
 import {
-  XYPlot, 
-  XAxis, 
-  YAxis, 
+  XYPlot,
+  XAxis,
+  YAxis,
   AreaSeries,
   Hint,
   VerticalGridLines,
@@ -51,7 +52,7 @@ const process_positif = () =>{
   const series_meninggal = []
   const series_sembuh = []
   const series_rawat = []
-  
+
   condition_raw_positif.forEach((data,index)=>{
     const total = data.Meninggal + data.Sembuh + data.Rawat
     series_sembuh.push({x:new Date(data.Date),y: data.Sembuh})
@@ -79,8 +80,8 @@ const ITEMS = {
   ],
   positif: [
     'sembuh',
+    'meninggal',
     'dirawat',
-    'meninggal'
   ]
 }
 const COLORS = {
@@ -94,8 +95,8 @@ const COLORS = {
   ],
   positif:[
     '#56cc1f',
+    '#ff2f00',
     '#ffbb00',
-    '#ff2f00'
   ]
 }
 const ConditionGraph = () => {
@@ -112,13 +113,13 @@ const ConditionGraph = () => {
       if (!percentShow) return {
         pemantauan:condition_raw_odp[index.index].Pemantauan,
         selesai:condition_raw_odp[index.index].Selesai
-      } 
+      }
       const total = condition_raw_odp[index.index].Pemantauan + condition_raw_odp[index.index].Selesai
       return {
         pemantauan:((condition_raw_odp[index.index].Pemantauan/total)*100).toFixed(1),
         selesai:((condition_raw_odp[index.index].Selesai/total)*100).toFixed(1)
       }
-    } 
+    }
     else if(name_param==='pdp'){
       if(!percentShow) return {
         pengawasan:condition_raw_pdp[index.index].Pengawasan,
@@ -146,7 +147,7 @@ const ConditionGraph = () => {
   }
   const areaSeries = (name_param,color,data_percent,data_kum) =>{
     return (
-      nameGroup===name_param && 
+      nameGroup===name_param &&
       <AreaSeries
       animation={'woobly'}
       color={color}
@@ -159,62 +160,64 @@ const ConditionGraph = () => {
       />)
   }
   return (
-    <div className="condition-graph">
-      <XYPlot 
-        width={625} height={300} 
-        stackBy="y"
-        xType={'time'}
-        yDomain={percentShow?[0,100]:''}
-        onMouseLeave={() => setCurrValue(null)}
-        >
-        <VerticalGridLines />
-        <HorizontalGridLines />
-        <XAxis
-          tickFormat = {v=>    
-          <tspan>
-            <tspan x="0">{`${v.getDate()}`}</tspan>
-            <tspan x="0" dy="1em">{`${months[v.getMonth()]}`}</tspan>
-          </tspan>}
+    <Fade delay={500}>
+      <div className="condition-graph">
+        <XYPlot
+          width={625} height={300}
+          stackBy="y"
+          xType={'time'}
+          yDomain={percentShow?[0,100]:''}
+          onMouseLeave={() => setCurrValue(null)}
+          >
+          <VerticalGridLines />
+          <HorizontalGridLines />
+          <XAxis
+            tickFormat = {v=>
+            <tspan>
+              <tspan x="0">{`${v.getDate()}`}</tspan>
+              <tspan x="0" dy="1em">{`${months[v.getMonth()]}`}</tspan>
+            </tspan>}
+          />
+          <YAxis
+            tickFormat={v=>(percentShow?`${v}%`:(v>=1000?(`${v/1000}k`):v))}
+            style={{text: {fontSize: 8}}}
+          />
+          {areaSeries('odp', COLORS.odp[0],choosenData.series_percent_selesai,choosenData.series_selesai)}
+          {areaSeries('odp', COLORS.odp[1],choosenData.series_percent_pemantauan,choosenData.series_pemantauan)}
+          {areaSeries('pdp', COLORS.pdp[0],choosenData.series_percent_selesai,choosenData.series_selesai)}
+          {areaSeries('pdp', COLORS.pdp[1],choosenData.series_percent_pengawasan,choosenData.series_pengawasan)}
+          {areaSeries('positif', COLORS.positif[0],choosenData.series_percent_sembuh,choosenData.series_sembuh)}
+          {areaSeries('positif', COLORS.positif[1],choosenData.series_percent_meninggal,choosenData.series_meninggal)}
+          {areaSeries('positif', COLORS.positif[2],choosenData.series_percent_rawat,choosenData.series_rawat)}
+          {currentValue&&
+            <Hint value={currentValue} align={{horizontal: Hint.ALIGN.AUTO, vertical: Hint.ALIGN.TOP_EDGE}}/>
+          }
+        </XYPlot>
+        <DiscreteColorLegend
+          colors={COLORS[nameGroup]}
+          orientation="horizontal"
+          items={ITEMS[nameGroup]}
+          strokeWidth='10'
         />
-        <YAxis 
-          tickFormat={v=>(percentShow?`${v}%`:(v>=1000?(`${v/1000}k`):v))}
-          style={{text: {fontSize: 8}}}
-        />
-        {areaSeries('odp', COLORS.odp[0],choosenData.series_percent_selesai,choosenData.series_selesai)}
-        {areaSeries('odp', COLORS.odp[1],choosenData.series_percent_pemantauan,choosenData.series_pemantauan)}
-        {areaSeries('pdp', COLORS.pdp[0],choosenData.series_percent_selesai,choosenData.series_selesai)}
-        {areaSeries('pdp', COLORS.pdp[1],choosenData.series_percent_pengawasan,choosenData.series_pengawasan)}
-        {areaSeries('positif', COLORS.positif[0],choosenData.series_percent_sembuh,choosenData.series_sembuh)}
-        {areaSeries('positif', COLORS.positif[1],choosenData.series_percent_meninggal,choosenData.series_meninggal)}
-        {areaSeries('positif', COLORS.positif[2],choosenData.series_percent_rawat,choosenData.series_rawat)}
-        {currentValue&&
-          <Hint value={currentValue} align={{horizontal: Hint.ALIGN.AUTO, vertical: Hint.ALIGN.TOP_EDGE}}/>
-        }
-      </XYPlot>
-      <DiscreteColorLegend
-        colors={COLORS[nameGroup]}
-        orientation="horizontal"
-        items={ITEMS[nameGroup]}
-        strokeWidth='10'
-      />
-      <div className="grafik-increment__tool-container">
-        <div className="grafik-increment__button-group">
-          <button
-          className={percentShow&&'selected'}
-          onClick={()=> setPercentShow(true)}
-          >Persentase</button>
-          <button
-          className={!percentShow&&'selected'}
-          onClick={()=> setPercentShow(false)}
-          >Jumlah</button>
-        </div>
-        <div className="grafik-increment__button-group">
-          <button className={nameGroup==='odp'&&'selected'} onClick={()=> handlerChoosenData('odp')}>ODP</button>
-          <button className={nameGroup==='pdp'&&'selected'} onClick={()=> handlerChoosenData('pdp')}>PDP</button>
-          <button className={nameGroup==='positif'&&'selected'} onClick={()=> handlerChoosenData('positif')}>Positif</button>
+        <div className="grafik-increment__tool-container">
+          <div className="grafik-increment__button-group">
+            <button
+            className={percentShow&&'selected'}
+            onClick={()=> setPercentShow(true)}
+            >Persentase</button>
+            <button
+            className={!percentShow&&'selected'}
+            onClick={()=> setPercentShow(false)}
+            >Jumlah</button>
+          </div>
+          <div className="grafik-increment__button-group">
+            <button className={nameGroup==='odp'&&'selected'} onClick={()=> handlerChoosenData('odp')}>ODP</button>
+            <button className={nameGroup==='pdp'&&'selected'} onClick={()=> handlerChoosenData('pdp')}>PDP</button>
+            <button className={nameGroup==='positif'&&'selected'} onClick={()=> handlerChoosenData('positif')}>Positif</button>
+          </div>
         </div>
       </div>
-    </div>
+    </Fade>
   );
 };
 

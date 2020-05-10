@@ -71,6 +71,24 @@ button {
   margin: 2rem auto;
 }
 
+.versus {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.versus-text {
+  flex-basis: 40%;
+  h3 {
+    margin: 10px 0;
+    font-size: 5rem;
+  }
+  p {
+    font-size: 1.2rem;
+  }
+}
+
 /* Media queries */
 
 @media screen and (max-width: 768px) {

@@ -66,7 +66,7 @@ export default class App extends React.Component {
           </Fade>
         </div>
         <Fade duration={3000}>
-          {/* <GraphIncrement/> */}
+          <GraphIncrement/>
         </Fade>
         <div className="left-text">
           <Fade bottom cascade>

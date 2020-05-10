@@ -81,3 +81,19 @@
     width: 85%;
   }
 }
+
+@media screen and (max-width: 767px) {
+  .grafik-increment__graph {
+    width: 100%;
+    overflow: auto;
+  }
+  .grafik-increment__statistic-data {
+    margin-left: 8vw;
+    margin-right: 8vw;
+    margin-top: 2rem;
+  }
+  .grafik-increment__statistic-data > p {
+    font-size: 0.85rem;
+    line-height: 1.4rem;
+  }
+}

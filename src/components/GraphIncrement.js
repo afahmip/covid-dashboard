@@ -44,33 +44,35 @@ export const GraphIncrement = () => {
   }
   return (
     <section className="grafik-increment">
-      <XYPlot
-        xType="time"
-        width={1000}
-        height={300}
-        onMouseLeave={() => setCurrValue(null)}
-        >
-        <XAxis
-          // hideTicks
-          tickFormat={t=>
-          <tspan>
-            <tspan x="0">{`${t.getDate()}`}</tspan>
-            <tspan x="0" dy="1em">{`${months[t.getMonth()]}`}</tspan>
-          </tspan>}/>
-        <YAxis/>
-        <LineSeries
-        animation={'wobbly'}
-        data={
-          mode_psbb?
-          showed_data.data.filter(data=>after_psbb?data.x.getTime() > PSBB_DATE.getTime():data.x.getTime() <= PSBB_DATE.getTime())
-          :showed_data.data}
-        onNearestXY= {value => setCurrValue({...value})}
-        color="#F16464"
-        />
-        {currentValue&&
-          <Hint value={currentValue}/>
-        }
-      </XYPlot>
+      <div className="grafik-increment__graph">
+        <XYPlot
+          xType="time"
+          width={1000}
+          height={300}
+          onMouseLeave={() => setCurrValue(null)}
+          >
+          <XAxis
+            // hideTicks
+            tickFormat={t=>
+            <tspan>
+              <tspan x="0">{`${t.getDate()}`}</tspan>
+              <tspan x="0" dy="1em">{`${months[t.getMonth()]}`}</tspan>
+            </tspan>}/>
+          <YAxis/>
+          <LineSeries
+          animation={'wobbly'}
+          data={
+            mode_psbb?
+            showed_data.data.filter(data=>after_psbb?data.x.getTime() > PSBB_DATE.getTime():data.x.getTime() <= PSBB_DATE.getTime())
+            :showed_data.data}
+          onNearestXY= {value => setCurrValue({...value})}
+          color="#F16464"
+          />
+          {currentValue&&
+            <Hint value={currentValue}/>
+          }
+        </XYPlot>
+      </div>
       <div className="grafik-increment__statistic-data">
         <p>
           <b>Rata-rata kenaikan: </b>

@@ -81,7 +81,6 @@ export const GraphIncrement = () => {
           {after_psbb&&average_after_psbb<average_before_psbb&&' kasus lebih sedikit dibandingkan sebelum psbb'}
           {!after_psbb&&average_after_psbb<average_before_psbb&&' kasus lebih banyak dibandingkan sesudah psbb'}
           {!after_psbb&&average_after_psbb>average_before_psbb&&' kasus lebih sedikitdibandingkan sesudah psbb'}
-
           )
         </p>
       </div>

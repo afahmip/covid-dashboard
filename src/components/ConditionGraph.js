@@ -7,7 +7,7 @@ import {
   Hint,
   VerticalGridLines,
   HorizontalGridLines,
-  DiscreteColorLegend
+  DiscreteColorLegend,
 } from 'react-vis';
 import '../styles/ConditionGraph.css';
 import condition_raw_positif from '../data/data_condition_positif.json'
@@ -108,19 +108,40 @@ const ConditionGraph = () => {
     setnameGroup(val)
   }
   const dataHint = (name_param,index)=>{
-    console.log(index.index)
-    if (name_param==='odp') return {
-      pemantauan:condition_raw_odp[index.index].Pemantauan,
-      selesai:condition_raw_odp[index.index].Selesai
+    if (name_param==='odp') {
+      if (!percentShow) return {
+        pemantauan:condition_raw_odp[index.index].Pemantauan,
+        selesai:condition_raw_odp[index.index].Selesai
+      } 
+      const total = condition_raw_odp[index.index].Pemantauan + condition_raw_odp[index.index].Selesai
+      return {
+        pemantauan:((condition_raw_odp[index.index].Pemantauan/total)*100).toFixed(1),
+        selesai:((condition_raw_odp[index.index].Selesai/total)*100).toFixed(1)
+      }
     } 
-    else if(name_param==='pdp') return {
-      pengawasan:condition_raw_pdp[index.index].Pengawasan,
-      selesai:condition_raw_odp[index.index].Selesai
+    else if(name_param==='pdp'){
+      if(!percentShow) return {
+        pengawasan:condition_raw_pdp[index.index].Pengawasan,
+        selesai:condition_raw_pdp[index.index].Selesai
+      }
+      const total = condition_raw_pdp[index.index].Pengawasan+ condition_raw_pdp[index.index].Selesai
+      return {
+        pengawasan:((condition_raw_pdp[index.index].Pengawasan/total)*100).toFixed(1),
+        selesai:((condition_raw_pdp[index.index].Selesai/total)*100).toFixed(1)
+      }
     }
-    else return {
-      sembuh:condition_raw_positif[index.index].Sembuh,
-      meninggal:condition_raw_positif[index.index].Meninggal,
-      rawat:condition_raw_positif[index.index].Rawat,
+    else {
+      if(!percentShow)return {
+        sembuh:condition_raw_positif[index.index].Sembuh,
+        meninggal:condition_raw_positif[index.index].Meninggal,
+        rawat:condition_raw_positif[index.index].Rawat,
+      }
+      const total = condition_raw_positif[index.index].Rawat+ condition_raw_positif[index.index].Meninggal+condition_raw_positif[index.index].Sembuh
+      return {
+        sembuh:((condition_raw_positif[index.index].Sembuh/total)*100).toFixed(1),
+        meninggal:((condition_raw_positif[index.index].Meninggal/total)*100).toFixed(1),
+        rawat:((condition_raw_positif[index.index].Rawat/total)*100).toFixed(1),
+      }
     }
   }
   const areaSeries = (name_param,color,data_percent,data_kum) =>{
@@ -139,10 +160,11 @@ const ConditionGraph = () => {
   }
   return (
     <div className="condition-graph">
-      <h1>Grafik Condition</h1>
       <XYPlot 
         width={900} height={300} 
-        stackBy={'y'} xType={'time'}
+        stackBy="y"
+        xType={'time'}
+        yDomain={percentShow?[0,100]:''}
         onMouseLeave={() => setCurrValue(null)}
         >
         <VerticalGridLines />
@@ -162,8 +184,8 @@ const ConditionGraph = () => {
         {areaSeries('odp','#f5a80f',choosenData.series_percent_pemantauan,choosenData.series_pemantauan)}
         {areaSeries('pdp','#29a97e',choosenData.series_percent_selesai,choosenData.series_selesai)}
         {areaSeries('pdp','#f5a80f',choosenData.series_percent_pengawasan,choosenData.series_pengawasan)}
-        {areaSeries('positif','#F16464',choosenData.series_percent_meninggal,choosenData.series_meninggal)}
         {areaSeries('positif','#29a97e',choosenData.series_percent_sembuh,choosenData.series_sembuh)}
+        {areaSeries('positif','#F16464',choosenData.series_percent_meninggal,choosenData.series_meninggal)}
         {areaSeries('positif','#f5a80f',choosenData.series_percent_rawat,choosenData.series_rawat)}
         {currentValue&&
           <Hint value={currentValue} align={{horizontal: Hint.ALIGN.AUTO, vertical: Hint.ALIGN.TOP_EDGE}}/>
@@ -172,7 +194,6 @@ const ConditionGraph = () => {
       <DiscreteColorLegend
         colors={COLORS[nameGroup]}
         orientation="horizontal"
-        width={300}
         items={ITEMS[nameGroup]}
         strokeWidth='10'
       />
@@ -193,6 +214,29 @@ const ConditionGraph = () => {
           <button className={nameGroup==='positif'&&'selected'} onClick={()=> handlerChoosenData('positif')}>Positif</button>
         </div>
       </div>
+      <XYPlot yDomain={[0,25]} stackBy="y" width={300} height={300}>
+      <VerticalGridLines />
+      <HorizontalGridLines />
+        <XAxis />
+        <YAxis />
+        
+        <AreaSeries
+          color="red"
+          data={[
+            {x: 1, y: 15},
+            {x: 2, y: 5},
+            {x: 3, y: 10}
+          ]}
+        />
+        <AreaSeries
+          color="green"
+          data={[
+            {x: 1, y: 10},
+            {x: 2, y: 20},
+            {x: 3, y: 15}
+          ]}
+        />
+      </XYPlot>
     </div>
   );
 };

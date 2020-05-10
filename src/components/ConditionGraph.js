@@ -145,6 +145,7 @@ const ConditionGraph = () => {
       }
     }
   }
+
   const areaSeries = (name_param,color,data_percent,data_kum) =>{
     return (
       nameGroup===name_param &&
@@ -159,11 +160,25 @@ const ConditionGraph = () => {
       })}}
       />)
   }
+
+  const innerWidth = window.innerWidth;
+  let width = 625, height = 300;
+  if (innerWidth < 330) {
+    width = 310;
+    height = 250;
+  } else if (innerWidth < 370) {
+    width = 330;
+    height = 250;
+  } else if (innerWidth < 450) {
+    width = 400;
+    height = 280;
+  }
+
   return (
     <Fade delay={500}>
       <div className="condition-graph">
         <XYPlot
-          width={625} height={300}
+          width={width} height={height}
           stackBy="y"
           xType={'time'}
           yDomain={percentShow?[0,100]:''}

@@ -100,7 +100,6 @@ export default class LineChartCumulative extends React.Component {
       height = 280;
     } else if (innerWidth < 1023) {
       width = 550;
-      // height = 280;
     }
 
     return (

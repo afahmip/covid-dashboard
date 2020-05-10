@@ -42,7 +42,7 @@ export default class App extends React.Component {
           <LineChartCumulative />
         </Fade>
         <AgeSlider />
-        {/* <Fade bottom cascade>
+        <Fade bottom cascade>
           <div className="versus">
             <div className="versus-text">
               <h3>19.9%</h3>
@@ -57,8 +57,8 @@ export default class App extends React.Component {
           <div className="center-text">
             <p className="paragraph">Tingkat kesembuhan mulai meningkat secara signifikan pada minggu ke-3 April, bertepatan pada awal dimulainya PSBB Bandung Raya.</p>
           </div>
-        </Fade> */}
-        {/* <ConditionGraph/> */}
+        </Fade>
+        <ConditionGraph/>
         <div className="center-text">
           <Fade bottom cascade delay={750}>
             <h2 className="section">Seberapa Efektif PSBB?</h2>

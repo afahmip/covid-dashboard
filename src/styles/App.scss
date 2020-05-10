@@ -111,6 +111,15 @@ button {
 //   }
 // }
 
+@media screen and (max-width: 767px) and (orientation: portrait) {
+  .versus {
+    flex-direction: column;
+  }
+  .versus-text {
+    &:first-child {margin-bottom: 2rem;}
+  }
+}
+
 @media screen and (max-width: 767px) {
   @mixin default-margins {
     margin-left: 8vw;
@@ -153,5 +162,10 @@ button {
 
   .section {
     @include default-margins;
+  }
+
+  .versus-text {
+    h3 {font-size: 4rem;}
+    p {font-size: 1rem;}
   }
 }

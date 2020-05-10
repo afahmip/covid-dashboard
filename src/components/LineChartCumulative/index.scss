@@ -97,6 +97,14 @@
   }
 }
 
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .lc-cumulative {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 @media screen and (max-width: 767px) {
   .lc-cumulative {
     width: 95%;

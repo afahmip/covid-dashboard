@@ -95,10 +95,12 @@ export default class LineChartCumulative extends React.Component {
     } else if (innerWidth < 400) {
       width = 350;
       height = 280;
-    }
-    else if (innerWidth < 450) {
+    } else if (innerWidth < 450) {
       width = 380;
       height = 280;
+    } else if (innerWidth < 1023) {
+      width = 550;
+      // height = 280;
     }
 
     return (

@@ -25,6 +25,7 @@ export default class App extends React.Component {
             <a href="https://www.linkedin.com/in/m-ilyas-mustafa/">Ilyas Mustafa</a>
             &nbsp; | Minggu, 10 Mei 2020
           </p>
+          <p className="data-source">Sumber data: Dinas Kesehatan Kota Bandung</p>
         </Fade>
         <Fade delay={300}>
           <p className="center-text paragraph">

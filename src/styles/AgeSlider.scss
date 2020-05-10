@@ -1,7 +1,7 @@
 .age-slider-section {
   display: flex;
   flex-direction: row;
-  margin: 8rem 0 15rem 0;
+  margin: 8rem 0 10rem 0;
 }
 
 .age-slider-text {
@@ -33,23 +33,23 @@
 .age-slider-wrapper > .pics {
   text-align: right;
   font-size: 1.5rem;
-  height: 260px;
+  height: 280px;
 
   &.giant img {
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
   }
   &.large img {
-    width: 34px;
-    height: 34px;
+    width: 36px;
+    height: 36px;
   }
   &.medium img {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
   }
   &.small img {
-    width: 22px;
-    height: 22px;
+    width: 25px;
+    height: 25px;
   }
   &.tiny img {
     width: 18px;

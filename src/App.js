@@ -20,6 +20,7 @@ function App() {
         <a href="https://github.com/ahmadfahmip">Ahmad Fahmi</a>,&nbsp;
         <a href="https://www.linkedin.com/in/luthfi-hadiana/">Luhtfi Ahmad</a>, &&nbsp;
         <a href="https://www.linkedin.com/in/m-ilyas-mustafa/">Ilyas Mustafa</a>
+        &nbsp; | Minggu, 10 Mei 2020
       </p>
       <p className="center-text paragraph">
         Sudah 2 bulan lebih sejak pemerintah mengumumkan kasus pertama COVID-19 pada tanggal 2 Maret 2020. Himbauan hidup sehat digaungkan, termasuk pula perintah untuk menjaga jarak (<i>physical distancing</i>) dan PSBB. Sejauh manakah perkembangan kasus hingga saat ini, khususnya di Kota Bandung?
@@ -33,6 +34,9 @@ function App() {
       </div>
       <LineChartCumulative />
       <AgeSlider />
+      <p className="left-text paragraph">
+        Jumlah kematian yang terus meningkat
+      </p>
       <ConditionGraph/>
       <div className="center-text">
         <h2 className="section">Seberapa Efektif PSBB?</h2>

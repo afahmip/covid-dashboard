@@ -93,7 +93,7 @@ export default class LineChartCumulative extends React.Component {
           <div className="lc-cumulative__content">
             <XYPlot
               onMouseLeave={() => this.setState({value: false})}
-              width={700}
+              width={780}
               height={300}
               className="lc-cumulative__figure"
             >

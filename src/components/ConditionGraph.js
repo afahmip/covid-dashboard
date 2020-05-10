@@ -73,11 +73,11 @@ const ITEMS = {
     'selesai',
     'pengawasan'
   ],
-  odp:[
+  odp: [
     'selesai',
     'pemantauan'
   ],
-  positif:[
+  positif: [
     'sembuh',
     'dirawat',
     'meninggal'
@@ -85,24 +85,24 @@ const ITEMS = {
 }
 const COLORS = {
   pdp: [
-    '#29a97e',
-    '#f5a80f'
+    '#56cc1f',
+    '#046bd1'
   ],
   odp:[
-    '#29a97e',
-    '#f5a80f'
+    '#56cc1f',
+    '#046bd1'
   ],
   positif:[
-    '#29a97e',
-    '#f5a80f',
-    '#F16464'
+    '#56cc1f',
+    '#ffbb00',
+    '#ff2f00'
   ]
 }
 const ConditionGraph = () => {
   const [percentShow, setPercentShow] = useState(false)
   const [currentValue,setCurrValue] = useState(null)
-  const [choosenData, setChoosenData] =  useState(allData.odp)
-  const [nameGroup, setnameGroup] = useState('odp')
+  const [choosenData, setChoosenData] =  useState(allData.positif)
+  const [nameGroup, setnameGroup] = useState('positif')
   const handlerChoosenData = (val) => {
     setChoosenData(allData[val])
     setnameGroup(val)
@@ -161,7 +161,7 @@ const ConditionGraph = () => {
   return (
     <div className="condition-graph">
       <XYPlot 
-        width={900} height={300} 
+        width={625} height={300} 
         stackBy="y"
         xType={'time'}
         yDomain={percentShow?[0,100]:''}
@@ -180,13 +180,13 @@ const ConditionGraph = () => {
           tickFormat={v=>(percentShow?`${v}%`:(v>=1000?(`${v/1000}k`):v))}
           style={{text: {fontSize: 8}}}
         />
-        {areaSeries('odp','#29a97e',choosenData.series_percent_selesai,choosenData.series_selesai)}
-        {areaSeries('odp','#f5a80f',choosenData.series_percent_pemantauan,choosenData.series_pemantauan)}
-        {areaSeries('pdp','#29a97e',choosenData.series_percent_selesai,choosenData.series_selesai)}
-        {areaSeries('pdp','#f5a80f',choosenData.series_percent_pengawasan,choosenData.series_pengawasan)}
-        {areaSeries('positif','#29a97e',choosenData.series_percent_sembuh,choosenData.series_sembuh)}
-        {areaSeries('positif','#F16464',choosenData.series_percent_meninggal,choosenData.series_meninggal)}
-        {areaSeries('positif','#f5a80f',choosenData.series_percent_rawat,choosenData.series_rawat)}
+        {areaSeries('odp', COLORS.odp[0],choosenData.series_percent_selesai,choosenData.series_selesai)}
+        {areaSeries('odp', COLORS.odp[1],choosenData.series_percent_pemantauan,choosenData.series_pemantauan)}
+        {areaSeries('pdp', COLORS.pdp[0],choosenData.series_percent_selesai,choosenData.series_selesai)}
+        {areaSeries('pdp', COLORS.pdp[1],choosenData.series_percent_pengawasan,choosenData.series_pengawasan)}
+        {areaSeries('positif', COLORS.positif[0],choosenData.series_percent_sembuh,choosenData.series_sembuh)}
+        {areaSeries('positif', COLORS.positif[1],choosenData.series_percent_meninggal,choosenData.series_meninggal)}
+        {areaSeries('positif', COLORS.positif[2],choosenData.series_percent_rawat,choosenData.series_rawat)}
         {currentValue&&
           <Hint value={currentValue} align={{horizontal: Hint.ALIGN.AUTO, vertical: Hint.ALIGN.TOP_EDGE}}/>
         }

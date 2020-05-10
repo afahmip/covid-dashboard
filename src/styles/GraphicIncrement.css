@@ -7,7 +7,7 @@
   margin-top: 3rem;
 }
 .grafik-increment__tool-container{
-  width: 55%;
+  width: 65%;
   margin-top: 32px;
   margin-bottom: 3rem;
   display: flex;
@@ -52,4 +52,12 @@
 
 .grafik-increment__title {
   text-align: left;
+}
+
+/* Media queries */
+
+@media screen and (max-width: 1023px) {
+  .grafik-increment__tool-container {
+    width: 75%;
+  }
 }

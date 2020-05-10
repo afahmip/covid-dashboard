@@ -86,17 +86,17 @@ const ITEMS = {
 }
 const COLORS = {
   pdp: [
-    '#56cc1f',
-    '#046bd1'
+    '#56cc1f99',
+    '#046bd199'
   ],
   odp:[
-    '#56cc1f',
-    '#046bd1'
+    '#56cc1f99',
+    '#046bd199'
   ],
   positif:[
-    '#56cc1f',
-    '#ff2f00',
-    '#ffbb00',
+    '#56cc1f99',
+    '#ff2f0099',
+    '#ffbb0099',
   ]
 }
 const ConditionGraph = () => {

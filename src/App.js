@@ -39,9 +39,9 @@ export default class App extends React.Component {
               Hingga saat ini, persebaran kasus COVID-19 di Kota Bandung terus meningkat dan belum terlihat indikasi akan segera turun.
             </p>
           </div>
-          {/* <LineChartCumulative /> */}
+          <LineChartCumulative />
         </Fade>
-        {/* <AgeSlider /> */}
+        <AgeSlider />
         {/* <Fade bottom cascade>
           <div className="versus">
             <div className="versus-text">

@@ -96,3 +96,26 @@
     }
   }
 }
+
+@media screen and (max-width: 767px) {
+  .lc-cumulative {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    flex-direction: column;
+  }
+
+  .lc-cumulative__toggle {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 4rem;
+    h5 {display: none;}
+    label {
+      width: 85px;
+      margin: 0.25rem;
+    }
+  }
+}

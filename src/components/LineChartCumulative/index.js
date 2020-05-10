@@ -87,14 +87,28 @@ export default class LineChartCumulative extends React.Component {
     let pdpLineSeriesProps = {...lineSeriesProps, color: COLORS[1], data: data.pdp[used]}
     let positifLineSeriesProps = {...lineSeriesProps, color: COLORS[2], data: data.positif[used]}
 
+    const innerWidth = window.innerWidth;
+    let width = 780, height = 300;
+    if (innerWidth < 360) {
+      width = 300;
+      height = 250;
+    } else if (innerWidth < 400) {
+      width = 350;
+      height = 280;
+    }
+    else if (innerWidth < 450) {
+      width = 380;
+      height = 280;
+    }
+
     return (
       <Fade bottom cascade>
         <div className="lc-cumulative">
           <div className="lc-cumulative__content">
             <XYPlot
               onMouseLeave={() => this.setState({value: false})}
-              width={780}
-              height={300}
+              width={width}
+              height={height}
               className="lc-cumulative__figure"
             >
               <VerticalGridLines />

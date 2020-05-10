@@ -2,7 +2,7 @@ import React from 'react';
 import Fade from 'react-reveal/Fade';
 import { scaleLinear } from "d3-scale";
 import ReactTooltip from "react-tooltip";
-import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
+import { ComposableMap, Geographies, Geography, ZoomableGroup } from 'react-simple-maps';
 import { toTitleCase } from '../helper';
 import '../styles/choropleth.scss';
 import positiveData from '../data/data_kecamatan_positif.json';
@@ -92,7 +92,7 @@ export class Choropleth extends React.Component {
     });
   }
 
-  renderToooltip = () => {
+  renderTooltip = () => {
     const {activeData} = this.state;
     return (
       <ReactTooltip>
@@ -108,52 +108,81 @@ export class Choropleth extends React.Component {
     );
   }
 
-  renderMap = () => {
+  renderMapZoomer = () => {
+    if (window.innerWidth < 1000) {
+      return (
+        <ZoomableGroup maxZoom={15}>
+          {this.renderGeographies()}
+        </ZoomableGroup>
+      )
+    }
+    return this.renderGeographies();
+  }
+
+  renderGeographies = () => {
     const {color} = this.state;
     const colorScale = scaleLinear()
       .domain([0, this.state.maxAmount])
       .range([color.start, color.end]);
 
     return (
+      <Geographies geography={topoMap}>
+        {({ geographies }) =>
+          geographies.map(geo => {
+            let geoName = geo.properties.KECAMATAN.split(' ').join('');
+            let geoData = this.state.data[geoName];
+            return (
+              <Geography
+                key={geo.rsmKey}
+                geography={geo}
+                fill={colorScale(geoData.amount)}
+                strokeWidth={0.3}
+                stroke={'#fff'}
+                onMouseEnter={() => this.setActiveData(geoName)}
+                onMouseLeave={() => {
+                  this.setState({showTooltip: false, activeData: null});
+                }}
+                style={{
+                  hover: {
+                    fill: color.hover
+                  }
+                }}
+              />
+            )
+          })
+        }
+      </Geographies>
+    )
+  }
+
+  renderMap = () => {
+    const innerWidth = window.innerWidth;
+    let width = 800, height = 520;
+
+    if (innerWidth < 400) {
+      width = 700;
+      height = 500;
+    } else if (innerWidth < 1000) {
+      width = 600;
+      height = 500;
+    }
+
+    return (
       <>
-        {this.renderToooltip()}
+        {this.renderTooltip()}
         <ComposableMap
           data-tip=""
-          height={520}
+          width={width}
+          height={height}
           projection="geoMercator"
           projectionConfig={{
             scale: 220000,
             center: [107.643, -6.902]
           }}>
-          <Geographies geography={topoMap}>
-            {({ geographies }) =>
-              geographies.map(geo => {
-                let geoName = geo.properties.KECAMATAN.split(' ').join('');
-                let geoData = this.state.data[geoName];
-                return (
-                  <Geography
-                    key={geo.rsmKey}
-                    geography={geo}
-                    fill={colorScale(geoData.amount)}
-                    strokeWidth={0.3}
-                    stroke={'#fff'}
-                    onMouseEnter={() => this.setActiveData(geoName)}
-                    onMouseLeave={() => {
-                      this.setState({showTooltip: false, activeData: null});
-                    }}
-                    style={{
-                      hover: {
-                        fill: color.hover
-                      }
-                    }}
-                  />
-                )
-              })
-            }
-          </Geographies>
+          {this.renderMapZoomer()}
         </ComposableMap>
       </>
-    )
+    );
   }
 
   chooseOption = option => {
@@ -169,10 +198,11 @@ export class Choropleth extends React.Component {
   render() {
     const {activeOption, color} = this.state;
     let gradientStyle;
+    let angle = window.innerWidth < 1024 ? '-90deg' : '0deg';
 
     if (color) {
       gradientStyle = {
-        backgroundImage: `linear-gradient(0deg, ${color.start}, ${color.end})`
+        backgroundImage: `linear-gradient(${angle}, ${color.start}, ${color.end})`
       }
     }
 

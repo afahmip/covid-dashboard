@@ -39,10 +39,10 @@ export default class App extends React.Component {
               Hingga saat ini, persebaran kasus COVID-19 di Kota Bandung terus meningkat dan belum terlihat indikasi akan segera turun.
             </p>
           </div>
-          <LineChartCumulative />
+          {/* <LineChartCumulative /> */}
         </Fade>
-        <AgeSlider />
-        <Fade bottom cascade>
+        {/* <AgeSlider /> */}
+        {/* <Fade bottom cascade>
           <div className="versus">
             <div className="versus-text">
               <h3>19.9%</h3>
@@ -57,8 +57,8 @@ export default class App extends React.Component {
           <div className="center-text">
             <p className="paragraph">Tingkat kesembuhan mulai meningkat secara signifikan pada minggu ke-3 April, bertepatan pada awal dimulainya PSBB Bandung Raya.</p>
           </div>
-        </Fade>
-        <ConditionGraph/>
+        </Fade> */}
+        {/* <ConditionGraph/> */}
         <div className="center-text">
           <Fade bottom cascade delay={750}>
             <h2 className="section">Seberapa Efektif PSBB?</h2>
@@ -66,7 +66,7 @@ export default class App extends React.Component {
           </Fade>
         </div>
         <Fade duration={3000}>
-          <GraphIncrement/>
+          {/* <GraphIncrement/> */}
         </Fade>
         <div className="left-text">
           <Fade bottom cascade>

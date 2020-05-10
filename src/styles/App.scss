@@ -91,8 +91,67 @@ button {
 
 /* Media queries */
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  // .center-text, .left-text, .caption {
+  //   width: auto;
+  // }
+}
+
+// @media screen and (max-width: 500px) {
+//   .App {
+//     max-width: 350px;
+//     margin: 4rem auto;
+//   }
+// }
+
+// @media screen and (max-width: 400px) {
+//   .App {
+//     max-width: 300px;
+//     margin: 4rem auto;
+//   }
+// }
+
+@media screen and (max-width: 767px) {
+  @mixin default-margins {
+    margin-left: 8vw;
+    margin-right: 8vw;
+  }
+
+  .App {
+    max-width: 100%;
+  }
+
+  .center-text, .left-text, .caption {
+    width: auto;
+  }
+
+  .main-title {
+    font-size: 6vw;
+    line-height: 10vw;
+    @include default-margins;
+  }
+
+  .author {
+    font-size: 0.65rem;
+    line-height: 1.3rem;
+    margin-bottom: 2.5rem;
+    @include default-margins;
+  }
+
   .paragraph {
-    margin: 1rem 5rem;
+    font-size: 0.75rem;
+    line-height: 1.5rem;
+    @include default-margins;
+  }
+
+  .caption {
+    font-size: 0.6rem;
+    line-height: 1.2rem;
+    margin-bottom: 3rem;
+    @include default-margins;
+  }
+
+  .section {
+    @include default-margins;
   }
 }
